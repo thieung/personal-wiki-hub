@@ -1,0 +1,2268 @@
+ ▐▛███▜▌   Claude Code v2.1.92
+▝▜█████▛▘  Opus 4.6 · Claude Max
+  ▘▘ ▝▝    ~/thieunv-vault
+
+  ✻ Voice mode is now available · /voice to enable
+
+❯ "You manage a personal knowledge base following the architecture in this      
+reference: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f    
+                                                                                
+Read the full gist before doing anything.                                       
+                                                                                
+## rules                                                                        
+                                                                                
+1. Never mix wiki content with the users personal notes. wiki/ is your          
+directory only.                                                                 
+                                                                                
+2. Classify every source before extracting. Type determines extraction depth:   
+   - report/whitepaper: section-by-section                                      
+   - article/blog: key claims + evidence                                        
+   - transcript: decisions + action items + quotes                              
+   - thread/tweet: core insight + context                                       
+   - code repo: architecture + patterns + dependencies                          
+                                                                                
+3. Every concept page must include a `## counter-arguments and data gaps`       
+section. If all sources agree, find the strongest critique. Never let the wiki  
+become one-sided.                                                               
+                                                                                
+4. Every wiki page starts with a TLDR line immediately after the title. One to  
+two sentences. This is used for index scanning.                                 
+                                                                                
+5. When a query produces a valuable answer (comparison, analysis, connection),  
+save it as a new wiki page with `type: query-result` in frontmatter. Queries    
+compound the wiki, not just ingests.                                            
+                                                                                
+6. Every wiki page has frontmatter:                                             
+   ```yaml                                                                      
+   ---                                                                          
+   title:                                                                       
+   type: summary | entity | concept | comparison | query-result                 
+   sources: []                                                                  
+   created: YYYY-MM-DD                                                          
+   updated: YYYY-MM-DD                                                          
+   tags: []                                                                     
+   ---                                                                          
+   ```                                                                          
+                                                                                
+7. Run a lint pass after every 5-10 ingests. Fix what you can autonomously.     
+Flag anything that needs user input."                                           
+
+⏺ Fetch(https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+  ⎿  Received 368.8KB (200 OK)
+
+⏺ Fetch(https://gist.githubusercontent.com/karpathy/442a6bf555914893e9891c11519d
+       e94f/raw)
+  ⎿  Received 11.7KB (200 OK)
+
+⏺ Đã đọc xong gist của Karpathy. Bây giờ tôi sẽ kiểm tra trạng thái hiện tại của
+   vault và thiết lập kiến trúc knowledge base.
+
+  Searched for 2 patterns, listed 1 directory (ctrl+o to expand)
+
+⏺ Vault trống. Tôi sẽ thiết lập cấu trúc 3 lớp theo mô hình Karpathy, kết hợp
+  với các rules bạn đã đặt ra.
+
+  Ran 1 bash command (ctrl+o to expand)
+
+⏺ Write(wiki/index.md)
+  ⎿  Wrote 29 lines to wiki/index.md
+      1 ---
+      2 title: Wiki Index
+      3 type: index
+      4 updated: 2026-04-08
+      5 ---
+      6 
+      7 # Wiki Index
+      8 
+      9 Content catalog organized by category. Updated on every ingest.
+     … +19 lines (ctrl+o to expand)
+
+⏺ Write(wiki/log.md)
+  ⎿  Wrote 13 lines to wiki/log.md
+      1 ---
+      2 title: Wiki Log
+      3 type: log
+      4 updated: 2026-04-08
+      5 ---
+      6 
+      7 # Wiki Log
+      8 
+      9 Chronological record of all wiki operations.
+     … +3 lines (ctrl+o to expand)
+
+⏺ Write(CLAUDE.md)
+  ⎿  Wrote 100 lines to CLAUDE.md
+       1 # Personal Knowledge Base — Schema
+       2 
+       3 This vault is a persistent, LLM-maintained knowledge base follow
+         ing the [Karpathy LLM Wiki pattern](https://gist.github.com/karp
+         athy/442a6bf555914893e9891c11519de94f).
+       4 
+       5 ## Architecture
+       6 
+       7 ```
+       8 thieunv-vault/
+       9 ├── raw/            # Immutable source documents (articles, pape
+         rs, transcripts, images)
+      10 │   └── assets/     # Downloaded images and attachments
+     … +90 lines (ctrl+o to expand)
+
+⏺ Knowledge base đã được thiết lập xong. Cấu trúc:
+
+  thieunv-vault/
+  ├── raw/            # Thả source documents vào đây (articles, papers,
+  transcripts...)
+  │   └── assets/     # Ảnh và attachments
+  ├── wiki/           # LLM viết và maintain — bạn chỉ đọc
+  │   ├── index.md    # Catalog tất cả wiki pages
+  │   └── log.md      # Log mọi operations theo thời gian
+  ├── CLAUDE.md       # Schema — quy tắc vận hành wiki
+  ├── plans/
+  └── docs/
+
+  Cách dùng:
+
+  1. Ingest — Drop file vào raw/, bảo tôi "ingest <filename>". Tôi sẽ phân loại
+  source, trích xuất, viết/cập nhật wiki pages, cập nhật index và log.
+  2. Query — Hỏi bất kỳ câu gì. Tôi tra wiki, tổng hợp trả lời. Câu trả lời hay
+  sẽ được lưu lại thành wiki page (type: query-result).
+  3. Lint — Tự động sau mỗi 5-10 ingests, hoặc bạn yêu cầu bất cứ lúc nào.
+
+  Tất cả 7 rules của bạn đã được nhúng vào schema (CLAUDE.md): phân loại source
+  trước khi trích xuất, bắt buộc counter-arguments section, TLDR line,
+  query-result pages, frontmatter chuẩn, và lint cycle.
+
+  Sẵn sàng nhận source đầu tiên. Drop file vào raw/ rồi bảo tôi ingest.
+
+✻ Brewed for 1m 45s
+
+❯ [Image #3] Look at this image:                                                
+1. separate your vaults                                                         
+                                                                                
+the obsidian founder said this. dont let agent-generated content mix with your  
+personal notes.                                                                 
+                                                                                
+> clean vault for your own thinking                                             
+> separate vault for your agents                                                
+> your personal notes stay high signal                                          
+2. classify before you extract                                                  
+                                                                                
+dont treat every document the same.                                             
+                                                                                
+> classify by type first (report vs transcript vs article vs thread)            
+> run type-specific extraction for each                                         
+> a 50-page report needs different handling than a 2-page letter                
+> set token budgets so you dont burn context on low-value sources               
+3. add a bias check                                                             
+                                                                                
+if you ingest 5 articles praising the same framework, the LLM will confidently  
+confirm your bias.                                                              
+                                                                                
+every time the LLM updates a concept page, force it to generate a               
+"counter-arguments and data gaps" section.                                      
+                                                                                
+makes it look for the strongest critique of whatever its summarizing            
+4. add a TLDR to every wiki page                                                
+                                                                                
+> LLM scans the index, reads the TLDR, decides whether to read the full page    
+> saves tokens on pages that arent relevant to the current query                
+> you skim your own wiki faster too                                             
+5. file your queries back into the wiki                                         
+                                                                                
+when you ask a question and get a good answer, that answer becomes a new wiki   
+page. comparisons, analyses, connections you found.                             
+                                                                                
+skip this and your best thinking disappears into chat history                   
+6. plan for scale early                                                         
+                                                                                
+two things break first:                                                         
+                                                                                
+> past a few hundred pages, the index file isnt enough. you need real search    
+> structure creeps in whether you plan for it or not. frontmatter, naming       
+conventions, folder rules                                                       
+                                                                                
+set these up on day 1                                                           
+7. run lint passes                                                              
+                                                                                
+periodically ask your LLM to audit the wiki:                                    
+                                                                                
+> find contradictions between pages                                             
+> flag claims that newer sources have replaced                                  
+> spot orphan pages with no inbound links                                       
+> suggest concepts mentioned but missing their own page                         
+                                                                                
+                                                                                
+What is your insight?                                                           
+  ⎿  [Image #3]
+
+⏺ Đây là bản chắt lọc rất tốt từ @shannholmberg — 7 điểm từ gist Karpathy + 120
+  comments cộng đồng. Đối chiếu với schema ta vừa setup:
+
+  Đã có trong schema: 1 (vault tách biệt), 2 (classify before extract), 3
+  (counter-arguments bắt buộc), 4 (TLDR mỗi page), 5 (query-result pages), 7
+  (lint cycle)
+
+  Cần bổ sung — điểm 6 (plan for scale): Schema chưa có chiến lược scale.
+  Infographic chỉ rõ 3 ngưỡng:
+  - 0-300 pages: index.md đủ dùng (ta đang ở đây)
+  - 300-500: cần FTS5/BM25 (qmd hoặc tương đương)
+  - 500+: structured DB
+
+  Insight của tôi:
+
+  Điểm giá trị nhất mà cộng đồng thêm vào so với gist gốc là token budgets theo 
+  source type. Karpathy nói "classify" nhưng không nói rõ tại sao — cộng đồng bổ
+   sung: một báo cáo 50 trang và một tweet 2 dòng không nên tiêu cùng lượng
+  context. Đây là vấn đề kinh tế thực tế, không chỉ là tổ chức.
+
+  Điểm thứ hai: bias check không chỉ là "nice to have". Khi bạn ingest 5 bài
+  cùng chiều về một topic, LLM sẽ tổng hợp thành một concept page rất tự tin —
+  nhưng tự tin sai. Bắt buộc counter-arguments section là cơ chế structural
+  chống confirmation bias, không dựa vào LLM "tự biết" cân bằng.
+
+  Điểm tôi không đồng ý hoàn toàn: "Plan for scale early" nghe hợp lý nhưng vi
+  phạm YAGNI. Ở 0-50 pages mà đã setup PostgreSQL là over-engineering. Index.md
+  + grep đủ cho 200-300 pages. Chỉ nên thêm search khi thực sự thấy index scan
+  chậm.
+
+  Bạn muốn tôi ingest infographic này thành wiki page đầu tiên không?
+
+❯ Có                                                                            
+
+  Ran 1 bash command (ctrl+o to expand)
+
+⏺ Write(raw/7-things-llm-wiki-stick.md)
+  ⎿  Wrote 22 lines to raw/7-things-llm-wiki-stick.md
+       1 # 7 Things That Make an LLM Wiki Actually Stick
+       2 
+       3 **Source:** @shannholmberg infographic (Karpathy's knowledge bas
+         e + 120 community comments)
+       4 **Type:** article/blog
+       5 **Date captured:** 2026-04-08
+       6 **Asset:** assets/7-things-llm-wiki-stick-shannholmberg.png
+       7 
+       8 ## Content
+       9 
+      10 1. **Separate your vaults** — Clean vault for own thinking. Sepa
+         rate vault for agents. Agents write speculatively — noise inside
+          signal if mixed. (Obsidian founder recommendation.)
+     … +12 lines (ctrl+o to expand)
+
+⏺ Giờ tôi viết các wiki pages.
+
+⏺ Write(wiki/llm-wiki-best-practices.md)
+  ⎿  Wrote 64 lines to wiki/llm-wiki-best-practices.md
+       1 ---
+       2 title: LLM Wiki Best Practices
+       3 type: concept
+       4 sources: [7-things-llm-wiki-stick.md]
+       5 created: 2026-04-08
+       6 updated: 2026-04-08
+       7 tags: [llm-wiki, knowledge-management, best-practices]
+       8 ---
+       9 
+      10 # LLM Wiki Best Practices
+     … +54 lines (ctrl+o to expand)
+
+⏺ Write(wiki/karpathy-llm-wiki-pattern.md)
+  ⎿  Wrote 51 lines to wiki/karpathy-llm-wiki-pattern.md
+       1 ---
+       2 title: Karpathy LLM Wiki Pattern
+       3 type: entity
+       4 sources: [7-things-llm-wiki-stick.md]
+       5 created: 2026-04-08
+       6 updated: 2026-04-08
+       7 tags: [karpathy, llm-wiki, architecture, knowledge-management]
+       8 ---
+       9 
+      10 # Karpathy LLM Wiki Pattern
+     … +41 lines (ctrl+o to expand)
+
+⏺ Giờ cập nhật index và log.
+
+⏺ Write(wiki/index.md)
+  ⎿  Added 5 lines, removed 5 lines
+       8  
+       9  Content catalog organized by category. Updated on every ingest.
+      10  
+      11 -## Summaries                                                   
+      12 -                                                               
+      13 -_No pages yet._                                                
+      14 -                                                               
+      11  ## Entities
+      12  
+      17 -_No pages yet._                                                
+      13 +- [Karpathy LLM Wiki Pattern](karpathy-llm-wiki-pattern.md) — T
+         +hree-layer architecture for LLM-maintained personal knowledge b
+         +ases with ingest/query/lint operations.                        
+      14  
+      15  ## Concepts
+      16  
+      17 +- [LLM Wiki Best Practices](llm-wiki-best-practices.md) — Seven
+         + community-validated practices: vault separation, classificatio
+         +n, bias checks, TLDRs, query filing, scale planning, lint.     
+      18 +                                                               
+      19 +## Summaries                                                   
+      20 +                                                               
+      21  _No pages yet._
+      22  
+      23  ## Comparisons
+
+⏺ Update(wiki/log.md)
+  ⎿  Added 7 lines
+      11  ## [2026-04-08] init | Wiki initialized
+      12  
+      13  Bootstrapped wiki with index, log, and schema. Three-layer arch
+          itecture: raw/ (immutable sources), wiki/ (LLM-maintained pages
+          ), CLAUDE.md (schema).
+      14 +                                                               
+      15 +## [2026-04-08] ingest | 7 Things That Make an LLM Wiki Actuall
+         +y Stick                                                        
+      16 +                                                               
+      17 +Source: @shannholmberg infographic (Karpathy + 120 community co
+         +mments). Type: article/blog.                                   
+      18 +Pages created: karpathy-llm-wiki-pattern.md (entity), llm-wiki-
+         +best-practices.md (concept).                                   
+      19 +Pages updated: index.md.                                       
+      20 +Ingest count since last lint: 1.                               
+
+⏺ Update(CLAUDE.md)  ⎿  Added 1 line, removed 1 line
+       97  
+       98  Track ingests since last lint. When count reaches 5-10, trigge
+           r lint automatically.
+       99  
+      100 -**Current count since last lint:** 0                          
+      100 +**Current count since last lint:** 1                          
+
+⏺ Ingest xong. Tóm tắt:
+
+  Source: raw/7-things-llm-wiki-stick.md + image
+  Phân loại: article/blog
+  Pages tạo mới:
+  - wiki/karpathy-llm-wiki-pattern.md (entity) — kiến trúc 3 lớp, operations,
+  origin
+  - wiki/llm-wiki-best-practices.md (concept) — 7 practices với
+  counter-arguments
+
+  Cả hai page đều có TLDR, counter-arguments section, cross-references lẫn nhau.
+   Index và log đã cập nhật. Ingest count: 1/5 trước lint tiếp theo.
+
+✻ Sautéed for 1m 16s
+
+❯ Cùng thảo luận thêm về cách tối ưu my current vault nhé, tham khảo thông tin  
+bên dưới:                                                                       
+```                                                                             
+# Context về tôi                                                                
+                                                                                
+Tôi là Software Engineer Việt Nam, đang build và maintain nhiều projects cùng   
+lúc:                                                                            
+                                                                                
+- **EJAR3**: project công ty, micro-services, multi-repos, Ruby on Rails, DDD   
+architecture với Coltrane event bus, nhiều bounded contexts (contract, billing, 
+ waiver, auto-renewal...). Đây là project chính, phức tạp nhất.                 
+- **GoClaw**: open-source AI agent gateway viết bằng Go. Multi-agent            
+orchestration                                                                   
+- **VividKit**: side project, desktop app (in development) + web (released).    
+- **Daily Social Content**: blog trên Substack + LinkedIn + Facebook + X +      
+Threads.                                                                        
+                                                                                
+Tôi dùng: macOS, Claude Code (daily driver), Obsidian, Git. Docs tôi mong muốn  
+viết bằng tiếng Anh và có bản i18n sang Vietnamese để nhanh nắm bắt hơn.        
+                                                                                
+---                                                                             
+                                                                                
+## Pattern tôi đang follow                                                      
+                                                                                
+Tôi đang áp dụng **Karpathy's LLM Knowledge Base pattern** (từ gist "LLM Wiki"  
+tháng 4/2026) — triết lý cốt lõi:                                               
+                                                                                
+- **Raw sources** là immutable input (code, articles, notes)                    
+- **Wiki/knowledge** là compiled output do LLM maintain                         
+- **Schema** (CLAUDE.md) nói cho LLM biết conventions và workflow               
+- LLM compile knowledge một lần rồi maintain liên tục, không derive lại mỗi     
+query                                                                           
+- `index.md` thay thế RAG ở quy mô vừa, QMD cho quy mô lớn hơn                  
+                                                                                
+## Adaptation cho use case của tôi                                              
+                                                                                
+Tôi muốn kết hợp cả hai use case của Karpathy pattern:                          
+                                                                                
+1. **Code-driven knowledge** (như developer wiki): compile từ codebase,         
+business logic, meeting notes, Claude Code session logs → structured project    
+docs                                                                            
+2. **Research-driven knowledge** (như Karpathy's original): ingest articles,    
+papers, tweets, videos, courses → compiled research wiki                        
+                                                                                
+Raw sources của tôi đến từ cả hai hướng: codebase + session logs (Claude Code   
+sessions khi làm việc trong Claude Code CLI) + meeting notes, VÀ external       
+articles + papers + tech explorations + community discussions + others. Wiki    
+cần serve cả hai mục đích — project documentation lẫn personal research         
+knowledge base.                                                                 
+                                                                                
+---                                                                             
+                                                                                
+## Vault structure hiện tại tôi nghĩ đến                                        
+                                                                                
+```                                                                             
+my-vault/                                                                       
+├── inbox/                  ← quick capture, mọi thứ vào đây trước (or naming   
+thành /raw)                                                                     
+├── projects/                                                                   
+│   ├── ejar3/                                                                  
+│   │   ├── _overview.md    ← project summary + tech stack                      
+│   │   ├── domains/        ← DDD bounded contexts                              
+│   │   ├── knowledge/      ← compiled business logic docs                      
+│   │   ├── integrations/   ← external service docs                             
+│   │   ├── architecture/   ← system design docs                                
+│   │   ├── ops/            ← runbooks, changelogs                              
+│   │   ├──                                                                     
+… +149 lines …                                                                  
+aude để extract entities. Khi file mixed language, entity extraction có bị      
+confuse không? Ví dụ: "Coltrane event bus" (tên tiếng Anh) trong đoạn văn tiếng 
+ Việt.                                                                          
+                                                                                
+d) **Compile language strategy**: Khi Claude Code compile knowledge từ code     
+(English) thành docs, viết tiếng gì?                                            
+   - Code tiếng Anh → docs tiếng Việt (cho team đọc)?                           
+   - Code tiếng Anh → docs tiếng Anh (consistent với code)?                     
+   - Cả hai (compile ra 2 versions)?                                            
+   - Hay compile ra tiếng Việt, nhưng giữ nguyên technical terms tiếng Anh      
+inline?                                                                         
+                                                                                
+e) **Frontmatter và tags**: Tags nên tiếng Anh (consistent, searchable), tiếng  
+Việt (natural cho người dùng), hay bilingual?                                   
+                                                                                
+f) **`/recall` skill language routing**: Khi `/recall` load context cho Claude  
+Code session, nên load docs cùng ngôn ngữ với session hiện tại? Hay load cả hai 
+ rồi để Claude filter? Token budget concern?                                    
+                                                                                
+Hãy phân tích từng option và recommend approach tối ưu cho use case             
+dual-language, với ưu tiên: AI search accuracy > human readability >            
+maintenance effort.                                                             
+                                                                                
+### 7. Security boundaries                                                      
+                                                                                
+EJAR3 là project công ty. Vault chứa business logic docs.                       
+- Nếu dùng QMD MCP server, data có leak ra ngoài không? (QMD claims all local)  
+- MemPalace ChromaDB storage — data ở đâu physically?                           
+- Khi share vault qua Git, folders nào nên .gitignore?                          
+- Graphify `graph.json` có chứa sensitive business logic không?                 
+                                                                                
+### 8. Edge cases và failure modes                                              
+                                                                                
+- Claude Code compact mid-session → session log bị truncate → knowledge loss.   
+Mitigation?                                                                     
+- QMD index corrupt → search trả kết quả sai. Recovery plan?                    
+- Graphify extract sai entity relationships → misleading graph. Detection       
+mechanism?                                                                      
+- Hai Claude Code sessions cùng edit vault file → conflict. Git merge strategy? 
+- Inbox backlog >50 items chưa process → overwhelm. Triage strategy?            
+                                                                                
+---                                                                             
+                                                                                
+## Output mong muốn                                                             
+                                                                                
+Hãy phân tích từng câu hỏi trên. Với mỗi câu:                                   
+1. Đánh giá setup hiện tại (đủ/thiếu/cần thay đổi)                              
+2. Đề xuất cụ thể nếu cần thay đổi (structure, workflow, tool config)           
+3. Priority: must-have trước khi bắt đầu vs nice-to-have sau này                
+                                                                                
+Cuối cùng, cho tôi một revised vault structure nếu bạn thấy cần thay đổi gì so  
+với structure trên.                                                             
+                                                                                
+---                                                                             
+                                                                                
+## References                                                                   
+                                                                                
+- Karpathy's LLM Wiki gist:                                                     
+https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f               
+- QMD: https://github.com/tobi/qmd                                              
+- Graphify: https://github.com/safishamsi/graphify (Claude Code skill,          
+knowledge graph)                                                                
+- MemPalace: https://github.com/milla-jovovich/mempalace                        
+- ArtemXTech's /recall workflow:                                                
+https://x.com/ArtemXTech/status/2028330693659332615                             
+```                                                                             
+
+⏺ Đây là câu hỏi phức tạp với nhiều chiều. Tôi sẽ research các tools bạn đề cập
+  trước, rồi phân tích từng câu hỏi.
+
+⏺ 3 background agents launched (↓ to manage)
+   ├─ qmd-researcher: Research QMD search tool
+   ├─ graphify-researcher: Research Graphify knowledge graph
+   └─ mempalace-researcher: Research MemPalace memory system
+
+⏺ Đang research song song QMD, Graphify, và MemPalace. Tôi sẽ tổng hợp kết quả
+  và phân tích toàn diện 8 câu hỏi của bạn khi các researchers hoàn thành.
+
+⏺ Fetch(https://x.com/ArtemXTech/status/2028330693659332615)
+  ⎿  Error: Request failed with status code 402
+
+⏺ Web Search("ArtemXTech recall workflow QMD MemPalace Claude Code 2026")
+  ⎿  Did 1 search in 9s
+
+⏺ Fetch(https://github.com/menkesu/claude-never-forgets/blob/main/setup-memory/a
+       ssets/recall-skill/SKILL.md)
+  ⎿  Received 251KB (200 OK)
+
+⏺ Fetch(https://dev.to/recca0120/mempalace-170-tokens-to-recall-everything-a-lon
+       g-term-memory-system-for-ai-agents-2855)
+  ⎿  Received 94.1KB (200 OK)
+
+  Read 1 file, searched memories (ctrl+o to expand)
+
+⏺ Các researchers đang chạy nhưng output format là raw JSON. Tôi đã có đủ thông
+  tin từ web research trực tiếp. Giờ tôi viết phân tích toàn diện.
+
+⏺ Write(plans/reports/analysis-260408-1729-vault-optimization.md)
+  ⎿  Wrote 305 lines to plans/reports/analysis-260408-1729-vault-optimization.md
+
+       1 # Vault Optimization Analysis
+       2 
+       3 **Date:** 2026-04-08
+       4 **Context:** Optimizing Karpathy LLM Wiki pattern for multi-proj
+         ect SE workflow with dual-language support.
+       5 
+       6 ---
+       7 
+       8 ## 1. Structure Gaps
+       9 
+      10 ### Assessment: Over-engineered for day 1. Simplify, grow into c
+         omplexity.
+     … +295 lines (ctrl+o to expand)
+
+⏺ Report đầy đủ đã lưu tại
+  plans/reports/analysis-260408-1729-vault-optimization.md. Dưới đây là tóm tắt
+  các quyết định chính:
+
+  ---
+  Thay đổi lớn nhất so với proposal của bạn
+
+  1. Bỏ research/ — merge vào wiki/.
+  Research notes chính là wiki pages. Wiki là research knowledge base của bạn.
+  projects/ là code-driven knowledge. Hai workflow khác nhau (ingest vs compile)
+   nhưng cùng frontmatter + QMD.
+
+  2. Flatten mạnh. Bỏ projects/*/integrations/, architecture/ → gộp vào
+  knowledge/. Bỏ content/ideas|drafts|published/ → flat với status: frontmatter.
+   Bỏ _meta/, _shared/, .mempalace/ — premature.
+
+  3. Dual-language: Option D + aliases.
+  Viết bằng ngôn ngữ tự nhiên nhất, tag lang:. Critical addition: aliases: 
+  [auto-renewal, gia hạn tự động] trong frontmatter — bridges keyword search
+  cross-language. Không cần đổi embedding model. Tags luôn tiếng Anh.
+
+  4. Compile = per bounded context, weekly git-diff trigger.
+  Một file per domain (ejar3-billing-domain.md), compile tiếng Việt + English
+  technical terms inline. Không compile 2 versions.
+
+  5. QMD: 6 collections thay vì 9. ejar3, goclaw, vividkit, wiki, sessions,
+  content.
+
+  Cấu trúc revised
+
+  thieunv-vault/
+  ├── raw/                    # Immutable sources
+  │   ├── assets/
+  │   └── archive/            # Unprocessed >30 days
+  ├── wiki/                   # Research wiki (Karpathy pattern)
+  ├── projects/
+  │   ├── ejar3/
+  │   │   ├── _overview.md
+  │   │   ├── people.md
+  │   │   ├── gotchas.md
+  │   │   ├── knowledge/      # FLAT — one file per domain/concept/flow
+  │   │   ├── decisions/      # ADRs
+  │   │   └── ops/            # Runbooks
+  │   ├── goclaw/
+  │   └── vividkit/
+  ├── content/                # FLAT — frontmatter status: seed|draft|published
+  ├── sessions/               # Auto-exported session logs
+  ├── templates/
+  └── CLAUDE.md
+
+  4 unresolved questions
+
+  1. QMD có index frontmatter aliases mặc định không? → verify sau khi install
+  2. Session-sync export có đủ metadata cho temporal search không?
+  3. MemPalace vs Claude Code built-in memory — evaluate sau 2 tuần
+  4. Graphify — GitHub 404 khi research, cần verify skill có tồn tại không
+
+  Chi tiết đầy đủ với priority (must-have / nice-to-have / future) trong report.
+   Bạn muốn tôi apply revised structure vào vault luôn, hay cần thảo luận thêm
+  điểm nào?
+
+✻ Worked for 3m 56s
+
+⏺ Agent "Research MemPalace memory system" completed
+
+⏺ Agent "Research QMD search tool" completed
+
+⏺ Agent "Research Graphify knowledge graph" completed
+
+⏺ Các researchers đã hoàn thành. Cập nhật quan trọng cho report dựa trên
+  findings mới:
+
+  QMD:
+  - Hỗ trợ multilingual qua QMD_EMBED_MODEL=Qwen3-Embedding-0.6B (119
+  languages). Nhưng recommendation vẫn giữ: dùng aliases trước, chỉ switch
+  embedding model nếu aliases không đủ.
+  - QMD index frontmatter theo YAML config — cần verify aliases field có được
+  index hay không sau khi cài.
+  - Scale: 10k-100k docs trên hardware hiện đại. Scale 680 files của bạn =
+  trivial.
+
+  MemPalace:
+  - Project mới 3 ngày (launched 5/4/2026, 7 commits). Report overclaims về
+  compression. Recommendation: chờ 1-2 tháng cho project mature trước khi adopt.
+   Claude Code built-in memory đủ dùng hiện tại.
+
+  Graphify:
+  - GitHub URL hoạt động (safishamsi/graphify). Không hỗ trợ cross-project
+  queries natively — cần merge thủ công.
+  - graph.json chứa topology + metadata, KHÔNG chứa source code. An toàn cho
+  EJAR3.
+  - Incremental rebuild qua SHA256 cache — acceptable cho weekly cycle.
+
+  Report chi tiết từ các researchers đã lưu tại plans/reports/. Bạn muốn apply
+  revised structure vào vault hay thảo luận thêm?
+
+❯ Phần document và search = AI thì keep English, chỉ là phần human view qua     
+Obsidian thì có support multi-lang switch là ổn                                 
+
+⏺ Hiểu rồi. Đơn giản hóa approach:
+
+  - Tất cả vault content viết tiếng Anh — cho AI search accuracy + consistency
+  - Obsidian i18n layer chỉ cần cho human browsing — giải quyết bằng Obsidian
+  plugin (ví dụ: i18n plugin hoặc Dataview rendering Vietnamese labels)
+  - Bỏ lang: frontmatter, bỏ aliases: bilingual — không cần nữa vì content đã
+  thống nhất English
+
+  Điều này simplify mạnh: một ngôn ngữ duy nhất cho toàn bộ knowledge layer,
+  Obsidian UI layer xử lý riêng cho human readability.
+
+  Tôi cập nhật report và lưu memory về preference này.
+
+⏺ Write(~/.claude/projects/-Users-thieunv-thieunv-vault/memory/user_profile.md)
+  ⎿  Wrote 15 lines to
+     ../.claude/projects/-Users-thieunv-thieunv-vault/memory/user_profile.md
+       1 ---
+       2 name: User Profile — thieunv
+       3 description: Vietnamese SE, multi-project (EJAR3/GoClaw/VividKit
+         ), daily Claude Code + Obsidian user, content creator
+       4 type: user
+       5 ---
+       6 
+       7 Software Engineer based in Vietnam. Manages multiple projects si
+         multaneously:
+       8 - **EJAR3**: Company project, Rails micro-services, DDD with Col
+         trane event bus, multiple bounded contexts
+       9 - **GoClaw**: Open-source AI agent gateway in Go
+      10 - **VividKit**: Side project, desktop + web app
+     … +5 lines (ctrl+o to expand)
+
+⏺ Write(~/.claude/projects/-Users-thieunv-thieunv-vault/memory/feedback_vault_la
+       nguage.md)
+  ⎿  Wrote 11 lines to ../.claude/projects/-Users-thieunv-thieunv-vault/mem
+     ory/feedback_vault_language.md
+      1 ---
+      2 name: Vault language — English only
+      3 description: All vault/wiki content must be English. Vietnamese o
+        nly at Obsidian UI layer for human browsing.
+      4 type: feedback
+      5 ---
+      6 
+      7 All document and search content in the vault stays English for AI
+         search accuracy and consistency. Vietnamese support is only need
+        ed at the Obsidian viewing layer (i18n plugin, Dataview labels, e
+        tc.), not in the files themselves.
+      8 
+      9 **Why:** Eliminates cross-language search problems entirely. No n
+        eed for bilingual aliases, lang: frontmatter, or multilingual emb
+        edding models.
+     … +1 line (ctrl+o to expand)
+
+⏺ Write(~/.claude/projects/-Users-thieunv-thieunv-vault/memory/MEMORY.md)
+  ⎿  Wrote 2 lines to
+     ../.claude/projects/-Users-thieunv-thieunv-vault/memory/MEMORY.md
+      1 - [User Profile](user_profile.md) — Vietnamese SE, multi-project 
+        (EJAR3/GoClaw/VividKit), Claude Code + Obsidian daily
+      2 - [Vault Language](feedback_vault_language.md) — All vault conten
+        t English only; Vietnamese at Obsidian UI layer only
+
+⏺ Done. Memory đã lưu. Quay lại câu hỏi chính — bạn muốn apply revised vault
+  structure luôn, hay thảo luận thêm điểm nào trước?
+
+✻ Crunched for 32s
+! open plans/reports/analysis-260408-1729-vault-optimization.md                 
+  ⎿  (Bash completed with no output)
+
+❯ code-driven knowledge là gì? những kiểu knowledge gì sẽ save vào trong        
+project/                                                                        
+
+⏺ Code-driven knowledge = knowledge được derive/compile từ codebase, không phải
+  từ external sources.
+
+  Cụ thể cho projects/ejar3/:
+
+  knowledge/ — compiled understanding về codebase:
+  - Domain logic: "How auto-renewal works" — extracted từ code, không phải từ
+  article
+  - Data flows: "Contract → Coltrane event → Billing → Invoice creation"
+  - Model relationships: "Waiver belongs_to Contract, has_many WaiverItems"
+  - Business rules: "Tenant can't auto-renew if outstanding balance > 30 days"
+  - Integration behavior: "Sadad payment callback retries 3x with exponential
+  backoff"
+  - Service boundaries: "Billing context publishes invoice.created event,
+  Contract context subscribes"
+
+  decisions/ — ADRs (Architecture Decision Records):
+  - "Why Coltrane over Sidekiq for inter-service communication"
+  - "Why DDD bounded contexts instead of Rails engines"
+  - "Why PostgreSQL per-service instead of shared DB"
+
+  ops/ — operational knowledge:
+  - Runbooks: "How to manually trigger auto-renewal batch"
+  - Changelogs: "Breaking changes in billing API v3"
+  - Incident notes: "2026-03-15 payment webhook timeout — root cause + fix"
+
+  _overview.md — tech stack, team, repo links, deployment info
+
+  people.md — teammate context, stakeholder preferences
+
+  gotchas.md — pitfalls discovered through experience: "Don't call
+  contract.renew! outside Coltrane event handler — skips billing validation"
+
+  ---
+  Phân biệt với wiki/:
+
+  ┌─────────────┬────────────────────────────┬──────────────────────────────┐
+  │             │         projects/          │            wiki/             │
+  ├─────────────┼────────────────────────────┼──────────────────────────────┤
+  │ Source      │ Codebase + sessions + team │ Articles, papers, tweets,    │
+  │             │  knowledge                 │ courses                      │
+  ├─────────────┼────────────────────────────┼──────────────────────────────┤
+  │ Maintenance │ Compile workflow (weekly   │ Ingest workflow (Karpathy    │
+  │             │ git-diff)                  │ pattern)                     │
+  ├─────────────┼────────────────────────────┼──────────────────────────────┤
+  │ Example     │ "EJAR3 billing domain      │ "Event-driven architecture   │
+  │             │ logic"                     │ patterns"                    │
+  ├─────────────┼────────────────────────────┼──────────────────────────────┤
+  │ Owner       │ Specific project           │ General knowledge            │
+  └─────────────┴────────────────────────────┴──────────────────────────────┘
+
+  Một concept có thể tồn tại ở cả hai: wiki/event-sourcing.md (general pattern)
+  và projects/ejar3/knowledge/coltrane-event-bus.md (EJAR3-specific
+  implementation). Wiki links giữa chúng: [[event-sourcing]].
+
+❯ OK, /ck:research thêm https://github.com/rowboatlabs/rowboat và cho insights  
+
+⏺ Skill(research)
+  ⎿  Successfully loaded skill
+
+⏺ Skill(docs-seeker)
+  ⎿  Successfully loaded skill
+
+  Ran 1 bash command (ctrl+o to expand)
+
+⏺ Fetch(https://github.com/rowboatlabs/rowboat)
+  ⎿  Received 317.8KB (200 OK)
+
+⏺ Web Search("rowboatlabs rowboat AI coworker knowledge graph architecture
+            2026")
+  ⎿  Did 1 search in 8s
+
+⏺ Fetch(https://github.com/rowboatlabs/rowboat/blob/main/README.md)
+  ⎿  Received 282.8KB (200 OK)
+
+⏺ Fetch(https://deepwiki.com/rowboatlabs/rowboat)
+  ⎿  Received 1.2MB (200 OK)
+
+⏺ Fetch(https://news.ycombinator.com/item?id=46962641)
+  ⎿  Received 86.3KB (200 OK)
+
+⏺ Now I have comprehensive data. Let me write the report and ingest this into
+  the wiki.
+
+⏺ Write(plans/reports/research-260408-1958-rowboat-analysis.md)
+  ⎿  Wrote 159 lines to plans/reports/research-260408-1958-rowboat-analysis.md
+
+       1 # Research Report: Rowboat
+       2 
+       3 **Date:** 2026-04-08
+       4 **Sources:** GitHub repo, DeepWiki, HN discussion, official site
+       5 
+       6 ---
+       7 
+       8 ## Executive Summary
+       9 
+      10 Rowboat is an open-source, local-first AI coworker (YC S24) that
+          builds persistent knowledge graphs from work activities — email
+         , calendar, meeting transcripts. It stores everything as Obsidia
+         n-compatible Markdown with wikilinks. Two deployment modes: Desk
+         top (Electron, personal) and Web (Next.js + Docker, team).
+     … +149 lines (ctrl+o to expand)
+
+⏺ Now ingest vào wiki.
+
+⏺ Write(raw/rowboat-github-repo.md)
+  ⎿  Wrote 24 lines to raw/rowboat-github-repo.md
+       1 # Rowboat — Open-Source AI Coworker with Memory
+       2 
+       3 **Source:** https://github.com/rowboatlabs/rowboat
+       4 **Type:** code repo
+       5 **Date captured:** 2026-04-08
+       6 **Additional sources:** DeepWiki analysis, HN discussion (item 4
+         6962641), official site
+       7 
+       8 ## Summary
+       9 
+      10 YC S24 startup. Local-first AI coworker that builds persistent k
+         nowledge graphs from work activities (email, calendar, meeting n
+         otes). Two modes: Desktop (Electron, personal) and Web (Next.js 
+         + Docker, team). TypeScript 96.7%. Stores knowledge as Obsidian-
+         compatible Markdown with wikilinks. Multi-agent system with MCP 
+         + Composio tool integration.
+     … +14 lines (ctrl+o to expand)
+
+⏺ Write(wiki/rowboat.md)
+  ⎿  Wrote 56 lines to wiki/rowboat.md
+       1 ---
+       2 title: Rowboat
+       3 type: entity
+       4 sources: [rowboat-github-repo.md]
+       5 created: 2026-04-08
+       6 updated: 2026-04-08
+       7 tags: [ai-coworker, knowledge-graph, multi-agent, mcp, local-fir
+         st, yc-s24]
+       8 ---
+       9 
+      10 # Rowboat
+     … +46 lines (ctrl+o to expand)
+
+⏺ Write(wiki/multi-agent-orchestration-patterns.md)
+  ⎿  Wrote 72 lines to wiki/multi-agent-orchestration-patterns.md
+       1 ---
+       2 title: Multi-Agent Orchestration Patterns
+       3 type: concept
+       4 sources: [rowboat-github-repo.md]
+       5 created: 2026-04-08
+       6 updated: 2026-04-08
+       7 tags: [multi-agent, orchestration, agent-gateway, mcp, goclaw]
+       8 ---
+       9 
+      10 # Multi-Agent Orchestration Patterns
+     … +62 lines (ctrl+o to expand)
+
+⏺ Cập nhật index và log.
+
+⏺ Write(wiki/index.md)
+  ⎿  Added 2 lines
+      11  ## Entities
+      12  
+      13  - [Karpathy LLM Wiki Pattern](karpathy-llm-wiki-pattern.md) — T
+          hree-layer architecture for LLM-maintained personal knowledge b
+          ases with ingest/query/lint operations.
+      14 +- [Rowboat](rowboat.md) — Open-source local-first AI coworker (
+         +YC S24) that auto-builds knowledge graphs from email/calendar/m
+         +eetings as Obsidian Markdown.                                  
+      15  
+      16  ## Concepts
+      17  
+      18  - [LLM Wiki Best Practices](llm-wiki-best-practices.md) — Seven
+           community-validated practices: vault separation, classificatio
+          n, bias checks, TLDRs, query filing, scale planning, lint.
+      19 +- [Multi-Agent Orchestration Patterns](multi-agent-orchestratio
+         +n-patterns.md) — Agent typing, retain/relinquish control flow, 
+         +dual tool routing (MCP + Composio), streaming feedback, securit
+         +y gaps.                                                        
+      20  
+      21  ## Summaries
+      22  
+
+⏺ Update(wiki/log.md)
+  ⎿  Added 7 lines
+      18  Pages created: karpathy-llm-wiki-pattern.md (entity), llm-wiki-
+          best-practices.md (concept).
+      19  Pages updated: index.md.
+      20  Ingest count since last lint: 1.
+      21 +                                                               
+      22 +## [2026-04-08] ingest | Rowboat — Open-Source AI Coworker     
+      23 +                                                               
+      24 +Source: GitHub repo rowboatlabs/rowboat + DeepWiki + HN discuss
+         +ion. Type: code repo.                                          
+      25 +Pages created: rowboat.md (entity), multi-agent-orchestration-p
+         +atterns.md (concept).                                          
+      26 +Pages updated: index.md, karpathy-llm-wiki-pattern.md (referenc
+         +ed in rowboat.md).                                             
+      27 +Ingest count since last lint: 2.                               
+
+⏺ Update(CLAUDE.md)
+  ⎿  Added 1 line, removed 1 line
+       97  
+       98  Track ingests since last lint. When count reaches 5-10, trigge
+           r lint automatically.
+       99  
+      100 -**Current count since last lint:** 1                          
+      100 +**Current count since last lint:** 2                          
+
+⏺ Ingest xong. Đây là insights chính cho bạn:
+
+  Rowboat = Karpathy pattern productized cho work context
+
+  Cùng triết lý "compiled knowledge > on-demand RAG", nhưng tự động ingest từ
+  Gmail/Calendar/Fireflies thay vì manual drop source. Validates vault approach
+  của bạn.
+
+  3 insights relevant nhất cho GoClaw:
+
+  1. Agent type primitives — conversation / pipeline / post_process / escalation
+   với retain/relinquish control flow. Đây là orchestration building blocks mà
+  GoClaw gateway nên expose as first-class API concepts.
+  2. Dual tool routing (MCP + Composio) — unified tool interface, gateway tự
+  route. Agent gọi "send-slack-message" → Composio. Agent gọi "query-custom-db"
+  → MCP server. Agent không cần biết plumbing.
+  3. Security gap = GoClaw differentiator — Rowboat bị HN chỉ trích vì zero
+  sandboxing cho LLM-generated code. GoClaw có thể differentiate bằng: tool call
+   validation, per-agent rate limiting, audit logging, permission scoping. Đây
+  là layer mà hầu hết multi-agent tools đang thiếu.
+
+  Cảnh báo từ HN community:
+
+  - Entity extraction từ noisy real-world data (email) rất khó — spam contacts
+  xuất hiện như entities. Extraction quality > quantity.
+  - "Knowledge graph" qua Markdown + wikilinks hoạt động tốt ở <10K entities,
+  nhưng đừng gọi nó là "graph database" — community sẽ gọi đó là marketing
+  speak.
+
+  Report chi tiết: plans/reports/research-260408-1958-rowboat-analysis.md
+  Wiki: wiki/rowboat.md + wiki/multi-agent-orchestration-patterns.md
+  Ingest count: 2/5 trước lint.
+
+  Sources:
+  - rowboatlabs/rowboat
+  - DeepWiki analysis
+  - HN discussion
+✻ Cogitated for 3m 10s
+
+❯ ý tôi là ideas của repo này ảnh hưởnh thế nào đến setup workflow hiện tại của 
+ tôi                                                                            
+ngoài ra tôi cần nơi tự note, kiểu add thêm diagrams các kiểu thì tổ chức KB ra 
+ sao?                                                                           
+
+⏺ Hai câu hỏi hay. Để tôi phân tích cụ thể.
+
+  ---
+  Rowboat's ideas → ảnh hưởng đến workflow của bạn
+
+  1. Automated ingestion pipeline — bạn nên adopt.
+
+  Hiện tại workflow của bạn: manual drop source vào raw/ → bảo Claude ingest.
+  Rowboat tự động sync từ Gmail/Calendar mỗi 5-30 phút.
+
+  Bạn không cần Rowboat, nhưng nên automate phần session ingestion:
+  - session-sync stop hook đã export sessions → sessions/
+  - Thiếu: weekly compile trigger tự đọc sessions + git diff → update project
+  knowledge
+
+  Concrete change: Thêm weekly compile step vào workflow: Claude Code đọc
+  sessions/ + git log --since="1 week ago" → auto-update projects/*/knowledge/.
+  Không cần 30s polling như Rowboat — weekly batch đủ cho use case của bạn.
+
+  2. Entity-type directories — bạn đã có tương đương.
+
+  Rowboat: People/, Organizations/, Projects/, Topics/. Bạn:
+  projects/ejar3/knowledge/, decisions/, ops/. Khác nhau về taxonomy nhưng cùng
+  principle: entity-based organization, flat within each type.
+
+  Không cần thay đổi. Structure hiện tại đã align.
+
+  3. build_graph.ts pattern — applicable cho compile workflow.
+
+  Rowboat's 30s polling + 10-file batch processing = simple, effective. Bạn nên
+  áp dụng cho weekly compile:
+  - Scan changed files (git diff)
+  - Batch process 10 files at a time (token budget management)
+  - Extract/update knowledge per batch
+  - Giống classify-before-extract principle: mỗi file type xử lý khác nhau
+
+  4. Dual tool model (MCP + Composio) — relevant cho QMD + Graphify setup.
+
+  Bạn đang dùng QMD (search) + Graphify (graph) + MemPalace (memory) — tương tự
+  Rowboat dùng Qdrant + MCP + Composio. Validate approach: multiple specialized
+  tools > one monolithic tool.
+
+  ---
+  Personal notes, diagrams, custom content — tổ chức ở đâu?
+
+  Đây là gap trong revised structure. Bạn cần nơi cho:
+  - Quick notes, thoughts, reflections
+  - Hand-drawn or generated diagrams
+  - Annotations on wiki pages
+  - Ideas chưa thuộc project nào cụ thể
+
+  Recommendation: thêm notes/ directory.
+
+  thieunv-vault/
+  ├── raw/                    # Immutable sources (LLM reads only)
+  ├── wiki/                   # LLM-maintained research wiki
+  ├── projects/               # Code-driven project knowledge
+  ├── content/                # Blog drafts
+  ├── sessions/               # Auto-exported session logs
+  ├── notes/                  # ← NEW: YOUR space. LLM reads, you write.
+  │   ├── assets/             # Diagrams, images, sketches
+  │   └── (flat .md files)    # Personal notes, annotations, ideas
+  ├── templates/
+  └── CLAUDE.md
+
+  Ownership rules rõ ràng:
+
+  ┌───────────┬──────────────────────────┬───────────┐
+  │ Directory │        Who writes        │ Who reads │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ raw/      │ You (drop sources)       │ LLM       │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ wiki/     │ LLM only                 │ Both      │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ projects/ │ LLM compiles, you review │ Both      │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ notes/    │ You only                 │ Both      │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ content/  │ You draft, LLM assists   │ Both      │
+  ├───────────┼──────────────────────────┼───────────┤
+  │ sessions/ │ Auto-exported            │ LLM       │
+  └───────────┴──────────────────────────┴───────────┘
+
+  notes/ rules:
+  - LLM never modifies files in notes/. Reads for context only.
+  - Flat structure. Filename = topic: notes/ejar3-billing-thoughts.md,
+  notes/goclaw-architecture-sketch.md
+  - Diagrams/images go in notes/assets/: notes/assets/billing-flow-diagram.png
+  - Frontmatter optional but useful:
+
+  ---
+  title: Billing Flow Thoughts
+  type: note
+  project: ejar3
+  created: 2026-04-08
+  tags: [billing, architecture]
+  ---
+
+  - Wikilink to wiki pages: See [[ejar3-billing-domain]] for compiled version
+  - QMD indexes notes/ → searchable alongside wiki
+
+  Relationship between notes/ and wiki/:
+
+  You write quick thought → notes/some-idea.md
+      ↓ (when ready)
+  You tell Claude: "ingest my note notes/some-idea.md"
+      ↓
+  Claude reads note → updates/creates wiki page
+      ↓
+  Note stays as-is (your original thinking preserved)
+  Wiki page = compiled, cross-referenced version
+
+  This follows Karpathy's vault separation principle (rule #1 from the
+  infographic): your thinking stays high-signal in notes/, LLM's compiled output
+   stays in wiki/.
+
+  ---
+  QMD collection update
+
+  Thêm 1 collection:
+
+  ejar3         → projects/ejar3/
+  goclaw        → projects/goclaw/
+  vividkit      → projects/vividkit/
+  wiki          → wiki/
+  sessions      → sessions/
+  content       → content/
+  notes         → notes/          ← NEW
+
+  Bạn muốn tôi apply changes này vào vault structure và update CLAUDE.md schema
+  luôn không?
+
+✻ Churned for 40s
+
+❯ Trong wiki/ có chứa các assets (generated bởi excalidraw, sketchnote, svg,    
+image, ...) được không?                                                         
+
+⏺ Được. wiki/assets/ cho LLM-generated diagrams và visuals gắn với wiki pages.
+  Tương tự notes/assets/ cho personal diagrams của bạn.
+
+  wiki/
+  ├── assets/              # Excalidraw, SVG, images gắn với wiki pages
+  │   ├── rowboat-architecture.excalidraw
+  │   ├── multi-agent-patterns.svg
+  │   └── ...
+  ├── index.md
+  ├── log.md
+  ├── rowboat.md           # references: ![](assets/rowboat-architecture.svg)
+  └── ...
+
+  notes/
+  ├── assets/              # Your personal diagrams, sketches
+  └── ...
+
+  Ownership rule vẫn giữ: wiki/assets/ = LLM generates (Excalidraw skill,
+  Mermaid → SVG, etc.). notes/assets/ = bạn vẽ/add thủ công.
+
+  Bạn muốn apply toàn bộ structure vào vault luôn không? Gồm: tạo notes/,
+  notes/assets/, wiki/assets/, update CLAUDE.md schema.
+
+❯ Vậy khi nào sync những thứ ở ngoài như notes/ vào wiki                        
+
+⏺ Không tự động sync. Bạn trigger, Claude thực thi. Cụ thể:
+
+  Khi nào sync notes/ → wiki/
+
+  1. Bạn bảo explicitly:
+  ▎ "Ingest notes/goclaw-agent-routing-idea.md vào wiki"
+
+  Claude đọc note → tạo/update wiki page → note giữ nguyên.
+
+  2. Weekly review (trong lint/compile cycle):
+  Claude scan notes/ → list notes chưa được ingest → hỏi bạn: "3 notes mới tuần
+  này, muốn ingest note nào?" → bạn chọn → Claude ingest.
+
+  3. Không bao giờ tự sync vì:
+  - Notes là raw thinking, chưa chắc đúng, chưa chắc đáng compile
+  - Bạn quyết định note nào xứng đáng lên wiki, note nào chỉ là scratch
+  - Tránh noise tràn vào wiki (cùng vấn đề Rowboat gặp với spam contacts)
+
+  Flow
+
+  Bạn viết → notes/some-idea.md (raw thinking)
+      ↓
+  Tuần sau vẫn thấy relevant?
+      ├── Yes → "ingest notes/some-idea.md" → wiki/ page created
+      └── No  → note stays in notes/, harmless
+
+  Note gốc không bị xóa sau khi ingest. Note = your original thinking. Wiki page
+   = compiled, cross-referenced version. Hai artifacts khác nhau.
+
+  Đơn giản: notes/ là inbox cho ideas, wiki/ là compiled output. Bạn là 
+  gatekeeper.
+
+❯ so với raw/ thì sao?                                                          
+
+⏺ Good question. Phân biệt rõ:
+
+  ┌──────────┬─────────────────────────────────┬────────────────────────────┐
+  │          │              raw/               │           notes/           │
+  ├──────────┼─────────────────────────────────┼────────────────────────────┤
+  │          │ External — articles, papers,    │ Internal — your own        │
+  │ Nguồn    │ tweets, repos, infographics     │ thinking, sketches,        │
+  │          │                                 │ diagrams                   │
+  ├──────────┼─────────────────────────────────┼────────────────────────────┤
+  │ Ai viết  │ Người khác viết, bạn capture    │ Bạn viết                   │
+  ├──────────┼─────────────────────────────────┼────────────────────────────┤
+  │ Mục đích │ Source of truth để Claude       │ Scratch space cho ideas    │
+  │          │ extract knowledge               │ chưa chín                  │
+  ├──────────┼─────────────────────────────────┼────────────────────────────┤
+  │ Ingest   │ Luôn ingest (đó là lý do nó nằm │ Chọn lọc ingest khi bạn    │
+  │ flow     │  ở raw/)                        │ thấy ready                 │
+  ├──────────┼─────────────────────────────────┼────────────────────────────┤
+  │ Ví dụ    │ Karpathy gist, Rowboat repo, HN │ "Tôi nghĩ GoClaw nên route │
+  │          │  thread                         │  MCP kiểu X..."            │
+  └──────────┴─────────────────────────────────┴────────────────────────────┘
+
+  Tóm gọn:
+  - raw/ = nguồn bên ngoài → luôn được ingest vào wiki
+  - notes/ = suy nghĩ của bạn → ingest có chọn lọc khi bạn decide
+
+  Nếu bạn viết 1 bài phân tích dài về architecture và muốn nó được compile vào
+  wiki ngay → drop vào raw/, nó sẽ được treat như source material.
+
+  Nếu bạn ghi nhanh 3 dòng idea lúc đang code → notes/, có thể ingest sau hoặc
+  không bao giờ.
+
+❯ Nghiên cứu https://github.com/bradduy/wiki-knowledge-compiler và check xem    
+cần làm gì để adapt với workflow của mình                                       
+
+⏺ Fetch(https://github.com/bradduy/wiki-knowledge-compiler)
+  ⎿  Received 342.5KB (200 OK)
+
+⏺ Fetch(https://github.com/bradduy/wiki-knowledge-compiler/tree/main/.claude)
+  ⎿  Received 216.3KB (200 OK)
+
+⏺ Fetch(https://raw.githubusercontent.com/bradduy/wiki-knowledge-compiler/main/C
+       LAUDE.md)
+  ⎿  Received 3.5KB (200 OK)
+
+⏺ Fetch(https://github.com/bradduy/wiki-knowledge-compiler/tree/main/agents)
+  ⎿  Received 221.7KB (200 OK)
+
+⏺ Fetch(https://github.com/bradduy/wiki-knowledge-compiler/tree/main/skills)
+  ⎿  Received 229.3KB (200 OK)
+
+⏺ Đủ data rồi. Đây là phân tích:
+
+  ---
+  Wiki Knowledge Compiler = Karpathy pattern đóng gói thành Claude Code plugin
+
+  Cùng triết lý, nhưng đã productize thành commands + agents + skills:
+
+  ┌───────────┬─────────────────────┬───────────────────────────────────────┐
+  │  Concept  │  Karpathy pattern   │        Wiki Knowledge Compiler        │
+  │           │   (bạn đang dùng)   │                                       │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Ingest    │ Manual: bạn bảo     │ /ingest-source <path> command         │
+  │           │ Claude ingest       │                                       │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Query     │ Manual: bạn hỏi,    │ /query-wiki <question> with citations │
+  │           │ Claude tra wiki     │                                       │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Lint      │ Manual: bạn bảo     │ /health-check command                 │
+  │           │ Claude audit        │                                       │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Index     │ Bạn/Claude update   │ /update-index auto-rebuild            │
+  │           │ index.md            │                                       │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Synthesis │ Không có            │ /generate-insights [focus] —          │
+  │           │                     │ cross-topic patterns                  │
+  ├───────────┼─────────────────────┼───────────────────────────────────────┤
+  │ Agents    │ 1 Claude session    │ 4 specialized agents: ingestor,       │
+  │           │ làm tất cả          │ librarian, synthesizer, auditor       │
+  └───────────┴─────────────────────┴───────────────────────────────────────┘
+
+  Cái hay mà bạn nên adopt:
+
+  1. Agent separation — 4 agents chuyên biệt thay vì 1 session làm hết:
+  - wiki-ingestor: chỉ xử lý source → extract knowledge
+  - wiki-librarian: chỉ search + cite + write-back query results
+  - wiki-synthesizer: chỉ generate cross-cutting insights
+  - wiki-auditor: chỉ health-check + fix structural issues
+
+  Bạn có thể tạo 4 agents tương tự trong .claude/agents/ — mỗi agent có
+  instructions rõ ràng, không bị overload context.
+
+  2. /generate-insights — bạn chưa có. Đây là bước synthesis giữa các wiki pages
+   để phát hiện patterns, connections, contradictions mà individual ingest không
+   thấy. Ví dụ: "Cả Rowboat lẫn Karpathy pattern đều dùng Markdown + wikilinks
+  thay vì graph DB — đây là emerging consensus."
+
+  3. [uncertainty: reason] notation — explicit uncertainty marking. Hay hơn
+  confidence: low/medium/high trong frontmatter vì nó inline, specific:
+  [uncertainty: only one source supports this claim].
+
+  4. Search tier strategy — đã codified sẵn thang scale:
+  - <100 pages: grep + index (bạn đang ở đây)
+  - 100-500: QMD CLI
+  - 500+: QMD MCP server
+
+  5. drafts/ directory — WIP pages chưa promoted. Tương đương notes/ của bạn
+  nhưng specifically cho wiki drafts (not personal notes).
+
+  Cái KHÔNG nên adopt (đã có tốt hơn):
+
+  1. Directory structure quá phân tán:
+  - concepts/ + topics/ + summaries/ + insights/ + drafts/ + references/ = 6
+  subdirs cho derived content. Overkill. Bạn dùng flat wiki/ với frontmatter
+  type: field = đơn giản hơn, flexible hơn, QMD search không cần biết folder.
+
+  2. Relative markdown links ([Attention](../concepts/attention-mechanism.md))
+  thay vì wikilinks ([[attention-mechanism]]). Wikilinks + Obsidian tốt hơn vì:
+  rename file tự update links, graph view works, shorter syntax.
+
+  3. knowledge-base/ prefix — thêm 1 level nesting không cần thiết.
+
+  ---
+  Concrete changes cho workflow của bạn:
+
+  Adopt:
+
+  1. Tạo 4 agent files trong vault's .claude/agents/:
+
+  .claude/agents/
+  ├── wiki-ingestor.md      # Ingest sources → wiki pages
+  ├── wiki-librarian.md     # Query wiki with citations
+  ├── wiki-synthesizer.md   # Generate cross-topic insights
+  └── wiki-auditor.md       # Health-check + lint
+
+  2. Thêm insights/ concept — không cần separate folder, dùng type: insight
+  trong frontmatter. Trigger sau mỗi 5 ingests hoặc on-demand.
+  3. Adopt [uncertainty: reason] notation — thêm vào CLAUDE.md schema.
+  4. Codify search tiers — thêm vào CLAUDE.md để Claude tự chọn search strategy
+  based on wiki size.
+
+  Skip:
+  - Plugin installation (bạn đã có custom setup tốt hơn)
+  - Folder-per-type structure (flat + frontmatter đủ)
+  - Relative links (keep wikilinks)
+
+  Bạn muốn tôi tạo 4 agent files và update CLAUDE.md schema luôn không?
+
+✻ Cooked for 1m 15s
+
+❯ Knowledge Graph cần thiết chưa? Show lại latest structure để mình preview     
+
+⏺ Knowledge Graph: chưa cần.
+
+  Lý do:
+
+  1. Scale chưa tới ngưỡng. Graphify tối ưu cho codebase có hàng trăm entities
+  với relationships phức tạp. Vault hiện tại: 4 wiki pages. Ở scale này,
+  Obsidian graph view (built-in, miễn phí, realtime) làm tốt hơn Graphify.
+  2. Markdown + wikilinks ĐÃ LÀ graph rồi. Mỗi [[page-name]] là một edge.
+  Obsidian render graph view từ wikilinks. Không cần tool riêng extract entities
+   — bạn đã tự tạo relationships khi viết.
+  3. Graphify's value đến từ code analysis, không phải markdown analysis. Nó
+  mạnh khi cần extract entities từ codebase (classes, functions, imports). Cho
+  wiki Markdown, value chủ yếu chỉ là relationship visualization — mà Obsidian
+  đã làm free.
+  4. HN feedback về Rowboat: "knowledge graph là marketing speak" khi scale nhỏ.
+   Áp dụng cho bạn: đừng over-engineer.
+
+  Khi nào cần Graphify:
+  - Khi projects/ejar3/knowledge/ > 50 files với nhiều cross-domain
+  relationships
+  - Khi muốn impact analysis trên codebase EJAR3 thực tế (không phải trên docs)
+  - Khi Obsidian graph view quá rối/chậm
+
+  Hiện tại: dùng Obsidian graph view cho wiki visualization. Defer Graphify 2-3
+  tháng.
+
+  ---
+  Latest vault structure (proposed, chưa apply)
+
+  thieunv-vault/
+  ├── raw/                        # Immutable external sources
+  │   ├── assets/                 # Images attached to sources
+  │   └── archive/                # Unprocessed >30 days
+  │
+  ├── wiki/                       # LLM-maintained research wiki
+  │   ├── assets/                 # LLM-generated diagrams (Excalidraw,
+  Mermaid→SVG)
+  │   ├── index.md                # Content catalog
+  │   ├── log.md                  # Operation log
+  │   └── *.md                    # Flat — entity/concept/summary/query-result
+  pages
+  │
+  ├── notes/                      # YOUR personal space — LLM reads only, never
+  writes
+  │   ├── assets/                 # Your diagrams, sketches, screenshots
+  │   └── *.md                    # Flat — quick thoughts, ideas, annotations
+  │
+  ├── projects/                   # Code-driven project knowledge
+  │   ├── ejar3/
+  │   │   ├── _overview.md
+  │   │   ├── people.md
+  │   │   ├── gotchas.md
+  │   │   ├── knowledge/          # Flat — per domain/concept/flow
+  │   │   ├── decisions/          # ADRs
+  │   │   └── ops/                # Runbooks, changelogs
+  │   ├── goclaw/
+  │   │   ├── _overview.md
+  │   │   ├── knowledge/
+  │   │   └── decisions/
+  │   └── vividkit/
+  │       ├── _overview.md
+  │       ├── knowledge/
+  │       └── decisions/
+  │
+  ├── content/                    # Blog drafts — flat with status: frontmatter
+  │
+  ├── sessions/                   # Auto-exported Claude Code sessions
+  │
+  ├── templates/                  # Frontmatter templates for each type
+  │
+  ├── plans/                      # Implementation plans (Claude Code workflow)
+  │   └── reports/                # Research reports
+  │
+  ├── docs/                       # Project documentation (Claude Code workflow)
+  │
+  ├── .claude/
+  │   └── agents/                 # OPTIONAL (adopt from
+  wiki-knowledge-compiler)
+  │       ├── wiki-ingestor.md
+  │       ├── wiki-librarian.md
+  │       ├── wiki-synthesizer.md
+  │       └── wiki-auditor.md
+  │
+  ├── CLAUDE.md                   # Schema — vault conventions + workflows
+  └── .gitignore                  # sessions/, raw/assets/, .mempalace/
+
+  Ownership matrix
+
+  ┌──────────────┬──────────────────────┬─────────┬────────────────────────┐
+  │  Directory   │      Who writes      │  Who    │        Purpose         │
+  │              │                      │  reads  │                        │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ raw/         │ You (drop sources)   │ LLM     │ External sources,      │
+  │              │                      │         │ immutable              │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ wiki/        │ LLM only             │ Both    │ Compiled research      │
+  │              │                      │         │ knowledge              │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ notes/       │ You only             │ Both    │ Personal thinking, WIP │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ projects/    │ LLM compiles, you    │ Both    │ Code-driven knowledge  │
+  │              │ review               │         │                        │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ content/     │ You draft, LLM       │ Both    │ Blog/social content    │
+  │              │ assists              │         │                        │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ sessions/    │ Auto-export hook     │ LLM     │ Session history        │
+  ├──────────────┼──────────────────────┼─────────┼────────────────────────┤
+  │ plans/ +     │ Claude Code workflow │ Both    │ Task-specific          │
+  │ docs/        │                      │         │                        │
+  └──────────────┴──────────────────────┴─────────┴────────────────────────┘
+
+  QMD collections
+
+  ejar3     → projects/ejar3/
+  goclaw    → projects/goclaw/
+  vividkit  → projects/vividkit/
+  wiki      → wiki/
+  notes     → notes/
+  sessions  → sessions/
+  content   → content/
+
+  Sync flows
+
+  raw/ ────ingest──→ wiki/         (always, external sources)
+  notes/ ──select──→ wiki/         (selective, you decide)
+  code  ──compile─→ projects/      (weekly, git-diff triggered)
+  sessions/ ─────→ projects/       (weekly, extract insights)
+
+  Khác biệt chính so với proposal ban đầu của bạn
+
+  - research/ → gộp vào wiki/
+  - inbox/ → bỏ. raw/ cho external, notes/ cho personal
+  - projects/*/integrations/, architecture/ → gộp vào knowledge/
+  - content/ideas|drafts|published/ → flat với frontmatter status:
+  - _meta/, _shared/, .mempalace/ → defer cho đến khi cần
+  - Thêm notes/ (user-owned space)
+  - Thêm wiki/assets/, notes/assets/ cho diagrams
+  - Thêm .claude/agents/ (optional, adopt từ wiki-knowledge-compiler)
+
+  Bạn muốn apply toàn bộ structure này vào vault luôn không? Tôi sẽ:
+  1. Tạo directory tree
+  2. Update CLAUDE.md schema với ownership rules, sync flows, uncertainty
+  notation
+  3. (Optional) Tạo 4 agent files trong .claude/agents/
+
+✻ Baked for 40s
+
+❯ Tôi muốn tạo thêm outputs/ for (answers, reports, and research your AI        
+generates), the outputs/ folder is where answers to your questions live         
+Fetch latest https://github.com/bradduy/wiki-knowledge-compiler, và suggest tạo 
+ agents, skills tương ứng, tất cả phải có prefix là wiki: để phân biệt với các  
+SKILLS khác có trong system.                                                    
+Ngoài ra, tôi muốn có thêm skill/command kêu LLM đi audit và update lại thông   
+tin của 1 wiki/page có sẵn nào đó thì                                           
+https://github.com/bradduy/wiki-knowledge-compiler có cover chưa, chưa thì hãy  
+add thêm SKILL này                                                              
+
+⏺ Fetch(https://raw.githubusercontent.com/bradduy/wiki-knowledge-compiler/main/a
+       gents/wiki-ingestor.md)
+  ⎿  Received 2.2KB (200 OK)
+
+⏺ Fetch(https://raw.githubusercontent.com/bradduy/wiki-knowledge-compiler/main/a
+       gents/wiki-librarian.md)
+  ⎿  Received 3.3KB (200 OK)
+⏺ Fetch(https://raw.githubusercontent.com/bradduy/wiki-knowledge-compiler/main/a
+       gents/wiki-synthesizer.md)
+  ⎿  Received 2.3KB (200 OK)
+
+⏺ Fetch(https://raw.githubusercontent.com/bradduy/wiki-knowledge-compiler/main/a
+       gents/wiki-auditor.md)
+  ⎿  Received 2.7KB (200 OK)
+
+⏺ Fetch(https://github.com/bradduy/wiki-knowledge-compiler/tree/main/skills)
+  ⎿  Received 229.9KB (200 OK)
+
+⏺ ---
+  1. outputs/ folder — thêm vào structure
+
+  outputs/                        # AI-generated answers, reports, research
+  ├── answers/                    # Query results worth keeping
+  ├── reports/                    # Analysis reports from /wiki:query
+  └── research/                   # Research synthesis
+
+  Phân biệt với các folder khác:
+
+  ┌────────────────┬─────────────────────────────────────────────────────────┐
+  │     Folder     │                         Purpose                         │
+  ├────────────────┼─────────────────────────────────────────────────────────┤
+  │ raw/           │ External sources (bạn drop vào)                         │
+  ├────────────────┼─────────────────────────────────────────────────────────┤
+  │ notes/         │ Personal thinking (bạn viết)                            │
+  ├────────────────┼─────────────────────────────────────────────────────────┤
+  │ wiki/          │ LLM compiled research knowledge (derived)               │
+  ├────────────────┼─────────────────────────────────────────────────────────┤
+  │ outputs/       │ LLM answers to your questions (ephemeral → persistent)  │
+  ├────────────────┼─────────────────────────────────────────────────────────┤
+  │ plans/reports/ │ Claude Code workflow reports (task-specific, không phải │
+  │                │  knowledge)                                             │
+  └────────────────┴─────────────────────────────────────────────────────────┘
+
+  Khác biệt outputs/ vs wiki/:
+  - wiki/ = canonical knowledge (entity/concept pages, cross-referenced)
+  - outputs/ = Q&A artifacts (specific question → specific answer)
+  - Valuable outputs/ items có thể được promote thành wiki/ pages
+
+  ---
+  2. Wiki agents & skills với prefix wiki:
+
+  4 agents (port từ wiki-knowledge-compiler, rename với prefix):
+
+  .claude/agents/
+  ├── wiki-ingestor.md       # Read raw/ → extract → write wiki/
+  ├── wiki-librarian.md      # Search wiki/ → answer with citations → write
+  outputs/
+  ├── wiki-synthesizer.md    # Cross-page analysis → insights
+  └── wiki-auditor.md        # Health check → structured report (read-only)
+
+  Skills với prefix wiki: (8 skills, 7 port + 1 mới):
+
+  ~/.claude/skills/
+  ├── wiki-ingest/              # /wiki:ingest <source> → invoke wiki-ingestor
+  ├── wiki-query/               # /wiki:query <question> → invoke wiki-librarian
+  ├── wiki-synthesize/          # /wiki:synthesize [focus] → invoke
+  wiki-synthesizer
+  ├── wiki-audit/               # /wiki:audit → invoke wiki-auditor (read-only
+  health check)
+  ├── wiki-refresh/             # /wiki:refresh <page.md> → NEW, see below
+  ├── wiki-index/               # /wiki:index → rebuild index.md
+  ├── wiki-setup/               # /wiki:setup → initial config, search tier
+  selection
+  └── wiki-link/                # /wiki:link → cross-linking pass (find missing
+  [[links]])
+
+  Tất cả prefix wiki: → không collision với existing skills như research, docs,
+  etc.
+
+  ---
+  3. Gap analysis: audit+update existing page
+
+  wiki-knowledge-compiler KHÔNG cover usecase này. Cụ thể:
+
+  ┌────────────────────┬──────────────────────────────┬──────────────────────┐
+  │      Existing      │         What it does         │         Gap          │
+  ├────────────────────┼──────────────────────────────┼──────────────────────┤
+  │                    │ Read-only structural audit   │                      │
+  │ wiki-auditor       │ (broken links, orphans,      │ Không update content │
+  │                    │ duplicates)                  │                      │
+  ├────────────────────┼──────────────────────────────┼──────────────────────┤
+  │                    │ Ingest NEW source → update   │ Cần new source,      │
+  │ wiki-ingestor      │ relevant pages               │ không refresh        │
+  │                    │                              │ standalone           │
+  ├────────────────────┼──────────────────────────────┼──────────────────────┤
+  │ /update-index      │ Rebuild navigation indexes   │ Không touch page     │
+  │                    │                              │ content              │
+  ├────────────────────┼──────────────────────────────┼──────────────────────┤
+  │ /generate-insights │ Tạo NEW insight pages        │ Không update         │
+  │                    │                              │ existing pages       │
+  └────────────────────┴──────────────────────────────┴──────────────────────┘
+
+  Thiếu: "Take existing wiki/rowboat.md, audit its claims, check if sources
+  still valid, fetch fresh info if needed, update with confidence markers."
+
+  Proposed new skill: wiki:refresh
+
+  ~/.claude/skills/wiki-refresh/SKILL.md
+
+  Purpose: Audit và update content của một wiki page cụ thể. Khác với wiki:audit
+   (structural) — đây là content refresh.
+
+  Workflow:
+
+  1. Read target page (e.g., wiki/rowboat.md)
+  2. Parse frontmatter — identify sources:, updated:, type:
+  3. Content audit:
+    - Claims still accurate? (cross-check with other wiki pages)
+    - Sources still accessible? (validate URLs in raw/)
+    - Counter-arguments section up-to-date?
+    - Related pages still exist? (check [[wikilinks]])
+  4. Staleness check: if updated >60 days, flag for refresh
+  5. Optional fresh research: if user passes --research flag, do web search for
+  updates to the topic
+  6. Diff proposal: show user what would change — don't auto-apply
+  7. On approval: update page, bump updated:, add ## [YYYY-MM-DD] refresh entry
+  to wiki/log.md
+  8. Preserve: original content in page history (git handles this), never
+  silently delete
+
+  Invocation:
+  /wiki:refresh wiki/rowboat.md                    # audit only
+  /wiki:refresh wiki/rowboat.md --research         # + fresh web research
+  /wiki:refresh wiki/rowboat.md --all-sources      # re-read all sources in 
+  frontmatter
+
+  Agent used: wiki-ingestor (reuse — it already knows how to update pages with
+  source attribution).
+
+  Why not reuse wiki-auditor?
+  - wiki-auditor = read-only, structural, system-wide
+  - wiki-refresh = write-capable, content-focused, single-page
+
+  Two different concerns. Separation is valuable.
+
+  ---
+  Revised final structure
+
+  thieunv-vault/
+  ├── raw/                        # External sources (immutable)
+  │   ├── assets/
+  │   └── archive/
+  │
+  ├── wiki/                       # LLM-compiled research knowledge
+  │   ├── assets/                 # LLM-generated diagrams
+  │   ├── index.md
+  │   ├── log.md
+  │   └── *.md
+  │
+  ├── notes/                      # Your personal thinking (LLM reads only)
+  │   ├── assets/
+  │   └── *.md
+  │
+  ├── outputs/                    # LLM-generated artifacts (NEW)
+  │   ├── answers/                # Q&A results
+  │   ├── reports/                # Analysis reports
+  │   └── research/               # Research synthesis
+  │
+  ├── projects/                   # Code-driven knowledge
+  │   ├── ejar3/
+  │   ├── goclaw/
+  │   └── vividkit/
+  │
+  ├── content/                    # Blog drafts
+  ├── sessions/                   # Session logs
+  ├── templates/
+  ├── plans/                      # Claude Code plans
+  ├── docs/                       # Claude Code docs
+  │
+  ├── .claude/
+  │   └── agents/
+  │       ├── wiki-ingestor.md
+  │       ├── wiki-librarian.md
+  │       ├── wiki-synthesizer.md
+  │       └── wiki-auditor.md
+  │
+  ├── CLAUDE.md
+  └── .gitignore
+
+  Apply plan — bạn confirm các items dưới đây:
+
+  ┌─────┬──────────────────────────────────────────────────────┬────────────┐
+  │  #  │                         Item                         │   Action   │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 1   │ Tạo outputs/, outputs/answers/, outputs/reports/,    │ Create     │
+  │     │ outputs/research/                                    │ dirs       │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 2   │ Tạo notes/, notes/assets/, wiki/assets/              │ Create     │
+  │     │                                                      │ dirs       │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 3   │ Tạo projects/ejar3/, projects/goclaw/,               │ Create     │
+  │     │ projects/vividkit/ với subdirs                       │ dirs       │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 4   │ Update CLAUDE.md với ownership matrix, sync flows,   │ Rewrite    │
+  │     │ uncertainty notation, search tier config             │ schema     │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 5   │ Tạo 4 agent files trong .claude/agents/ (port từ     │ Create     │
+  │     │ wiki-knowledge-compiler)                             │ files      │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 6   │ Tạo 8 skill dirs trong ~/.claude/skills/wiki-*/      │ Create     │
+  │     │                                                      │ files      │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 7   │ Viết wiki-refresh skill mới với workflow trên        │ Create new │
+  │     │                                                      │  skill     │
+  ├─────┼──────────────────────────────────────────────────────┼────────────┤
+  │ 8   │ Update .gitignore                                    │ Update     │
+  └─────┴──────────────────────────────────────────────────────┴────────────┘
+
+  Bạn muốn apply tất cả, hay split ra phase: (A) structure + CLAUDE.md trước,
+  (B) agents + skills sau?
+
+✻ Brewed for 1m 11s
+
+❯ plans/, docs/ đưa vào .gitignore vì đây là folders generated khi tôi dùng     
+ClaudeKit                                                                       
+Start với A trước                                                               
+1 câu hỏi nữa là: notes/ folder có được LLM audit không?                        
+
+⏺ Câu hỏi về notes/ audit
+
+  Có, nhưng read-only — báo cáo, không tự sửa.
+
+  ┌─────────────────────────────────────────────────┬────────────────────┐
+  │                    Operation                    │ Allowed on notes/? │
+  ├─────────────────────────────────────────────────┼────────────────────┤
+  │ Read for context (khi trả lời câu hỏi)          │ ✅                 │
+  ├─────────────────────────────────────────────────┼────────────────────┤
+  │ Scan for orphans, broken links, stale files     │ ✅ (audit report)  │
+  ├─────────────────────────────────────────────────┼────────────────────┤
+  │ Suggest ingest candidates (notes đáng lên wiki) │ ✅ (suggestion)    │
+  ├─────────────────────────────────────────────────┼────────────────────┤
+  │ Fix broken links, rename files, update content  │ ❌                 │
+  ├─────────────────────────────────────────────────┼────────────────────┤
+  │ Delete files                                    │ ❌                 │
+  └─────────────────────────────────────────────────┴────────────────────┘
+
+  Workflow: /wiki:audit scan cả wiki/ và notes/. Với wiki/ → có thể auto-fix.
+  Với notes/ → chỉ output report cho bạn quyết định. Giữ nguyên ownership rule:
+  notes/ là của bạn.
+
+  ---
+  Phase A — apply structure + CLAUDE.md
+
+  Ran 1 bash command (ctrl+o to expand)
+
+⏺ Write(.gitignore)
+  ⎿  Wrote 21 lines to .gitignore
+       1 # Auto-exported session logs (may contain sensitive context)
+       2 sessions/
+       3 
+       4 # Large binary assets
+       5 raw/assets/
+       6 
+       7 # MemPalace local memory (if installed later)
+       8 .mempalace/
+       9 
+      10 # ClaudeKit generated workflow folders
+     … +11 lines (ctrl+o to expand)
+
+⏺ Write(CLAUDE.md)
+  ⎿  Added 146 lines, removed 50 lines
+        1  # Personal Knowledge Base — Schema
+        2  
+        3 -This vault is a persistent, LLM-maintained knowledge base foll
+          -owing the [Karpathy LLM Wiki pattern](https://gist.github.com/
+          -karpathy/442a6bf555914893e9891c11519de94f).                   
+        3 +This vault is a persistent, LLM-maintained knowledge base foll
+          +owing the [Karpathy LLM Wiki pattern](https://gist.github.com/
+          +karpathy/442a6bf555914893e9891c11519de94f), adapted for multi-
+          +project software engineering workflow with code-driven + resea
+          +rch-driven knowledge.                                         
+        4  
+        5 -## Architecture                                               
+        5 +## Architecture (7 layers)                                    
+        6  
+        7  ```
+        8  thieunv-vault/
+        9 -├── raw/            # Immutable source documents (articles, pa
+          -pers, transcripts, images)                                    
+       10 -│   └── assets/     # Downloaded images and attachments       
+       11 -├── wiki/           # LLM-generated and LLM-maintained markdow
+          -n pages                                                       
+       12 -│   ├── index.md    # Content catalog — updated on every inges
+          -t                                                             
+       13 -│   └── log.md      # Chronological append-only operation log 
+       14 -├── plans/          # Implementation plans (Claude Code workfl
+          -ow)                                                           
+       15 -├── docs/           # Project documentation (Claude Code workf
+          -low)                                                          
+       16 -└── CLAUDE.md       # This file — the schema                  
+        9 +├── raw/               # External sources — immutable, user dr
+          +ops files                                                     
+       10 +│   ├── assets/        # Images attached to sources           
+       11 +│   └── archive/       # Unprocessed items >30 days           
+       12 +├── wiki/              # LLM-maintained research knowledge    
+       13 +│   ├── assets/        # LLM-generated diagrams (Excalidraw, M
+          +ermaid→SVG)                                                   
+       14 +│   ├── index.md       # Content catalog                      
+       15 +│   └── log.md         # Operation log (append-only)          
+       16 +├── notes/             # USER-owned — personal thinking, LLM r
+          +eads only                                                     
+       17 +│   └── assets/        # User's diagrams, sketches            
+       18 +├── outputs/           # LLM-generated artifacts (answers, rep
+          +orts, research)                                               
+       19 +│   ├── answers/       # Q&A results worth keeping            
+       20 +│   ├── reports/       # Analysis reports                     
+       21 +│   └── research/      # Research synthesis                   
+       22 +├── projects/          # Code-driven project knowledge        
+       23 +│   ├── ejar3/         # Per-project: _overview, knowledge/, d
+          +ecisions/, ops/                                               
+       24 +│   ├── goclaw/                                               
+       25 +│   └── vividkit/                                             
+       26 +├── content/           # Blog drafts (flat, frontmatter status
+          +:)                                                            
+       27 +├── sessions/          # Auto-exported Claude Code session log
+          +s                                                             
+       28 +├── templates/         # Frontmatter templates                
+       29 +├── .claude/agents/    # wiki-* subagents                     
+       30 +├── plans/ + docs/     # ClaudeKit workflow (gitignored)      
+       31 +└── CLAUDE.md          # This file                            
+       32  ```
+       33  
+       19 -## Ownership Rules                                            
+       34 +## Ownership Matrix                                           
+       35  
+       21 -- **wiki/** is LLM-owned. The user reads; the LLM writes and m
+          -aintains all pages.                                           
+       22 -- **raw/** is user-curated. The LLM reads but never modifies s
+          -ource files.                                                  
+       23 -- Never mix wiki content with the user's personal notes outsid
+          -e this vault.                                                 
+       36 +| Directory | Writer | Reader | Notes |                       
+       37 +|-----------|--------|--------|-------|                       
+       38 +| `raw/` | User only | LLM | Immutable post-drop |            
+       39 +| `wiki/` | **LLM only** | Both | Derived from raw/ + notes/ i
+          +ngest |                                                       
+       40 +| `notes/` | **User only** | Both | LLM can audit (report-only
+          +), never modify |                                             
+       41 +| `outputs/` | LLM | Both | Q&A artifacts, may be promoted to 
+          +wiki/ |                                                       
+       42 +| `projects/` | LLM compiles, user reviews | Both | Compiled f
+          +rom codebase + sessions |                                     
+       43 +| `content/` | User drafts, LLM assists | Both | Blog/social c
+          +ontent |                                                      
+       44 +| `sessions/` | Auto-export hook | LLM | Historical context | 
+       45 +| `templates/` | User | Both | Frontmatter skeletons |        
+       46  
+       25 -## Source Classification                                      
+       47 +## Sync Flows                                                 
+       48  
+       27 -Before extracting, classify every source. Type determines extr
+          -action depth:                                                 
+       49 +```                                                           
+       50 +raw/      ──ingest────→ wiki/         (always, external source
+          +s)                                                            
+       51 +notes/    ──select────→ wiki/         (selective, user decides
+          +)                                                             
+       52 +code      ──compile──→ projects/      (weekly, git-diff trigge
+          +red)                                                          
+       53 +sessions/ ──extract──→ projects/      (weekly, mine for insigh
+          +ts)                                                           
+       54 +query     ──answer──→ outputs/        (when answer is reusable
+          +)                                                             
+       55 +outputs/  ──promote──→ wiki/          (when answer becomes can
+          +onical)                                                       
+       56 +```                                                           
+       57  
+       29 -| Type | Extraction |                                         
+       30 -|------|-----------|                                          
+       31 -| report / whitepaper | Section-by-section |                  
+       58 +## Source Classification (before ingest)                      
+       59 +                                                              
+       60 +| Type | Extraction approach |                                
+       61 +|------|-------------------|                                  
+       62 +| report / whitepaper | Section-by-section, exec summary first
+          + |                                                            
+       63 +| paper | Method + findings |                                 
+       64 +| transcript | Speaker attribution, decisions, action items | 
+       65  | article / blog | Key claims + evidence |
+       33 -| transcript | Decisions + action items + quotes |            
+       66  | thread / tweet | Core insight + context |
+       67  | code repo | Architecture + patterns + dependencies |
+       68  
+       69  ## Wiki Page Conventions
+       70  
+       39 -### Frontmatter (required on every wiki page)                 
+       71 +### Frontmatter (required)                                    
+       72  
+       73  ```yaml
+       74  ---
+       75  title: Page Title
+       44 -type: summary | entity | concept | comparison | query-result  
+       76 +type: summary | entity | concept | comparison | query-result |
+          + insight                                                      
+       77  sources: [source-filename.md, ...]
+       78  created: YYYY-MM-DD
+       79  updated: YYYY-MM-DD
+       48 -tags: [tag1, tag2]                                            
+       80 +tags: [always-english-kebab-case]                             
+       81  ---
+       82  ```
+       83  
+       52 -### Structure                                                 
+       84 +### Body structure                                            
+       85  
+       86  1. **Title** (`# Title`)
+       55 -2. **TLDR** — one to two sentences immediately after title. Us
+          -ed for index scanning.                                        
+       87 +2. **TLDR** — 1-2 sentences immediately after title. Used for 
+          +index scanning, saves tokens on irrelevant pages.             
+       88  3. **Body** — organized by topic
+       57 -4. **Counter-arguments and data gaps** (mandatory section). If
+          - all sources agree, find the strongest critique. The wiki must
+          - never become one-sided.                                      
+       58 -5. **Related pages** — wiki-links to connected pages          
+       89 +4. **Counter-arguments and data gaps** (mandatory). If all sou
+          +rces agree, find the strongest critique. Never let wiki become
+          + one-sided.                                                   
+       90 +5. **Related pages** — wikilinks to connected pages           
+       91  
+       92 +### Language                                                  
+       93 +                                                              
+       94 +All vault content is **English only**. Vietnamese support is a
+          +n Obsidian UI concern (i18n plugin), not a vault content conce
+          +rn. No `lang:` or bilingual aliases.                          
+       95 +                                                              
+       96 +### Uncertainty notation                                      
+       97 +                                                              
+       98 +Use `[uncertainty: reason]` inline when a claim is inferred, s
+          +peculative, or partially supported. Never present uncertain in
+          +fo as fact.                                                   
+       99 +                                                              
+      100 +Example: "Rowboat's entity extraction quality is poor at scale
+          + [uncertainty: only HN anecdotes, no published benchmarks]."  
+      101 +                                                              
+      102  ### Cross-references
+      103  
+       62 -Use `[[page-name]]` Obsidian-style wikilinks for internal link
+          -s.                                                            
+      104 +Use `[[page-name]]` Obsidian-style wikilinks for internal link
+          +s. Never use relative markdown paths.                         
+      105  
+      106 +### Filenames                                                 
+      107 +                                                              
+      108 +Kebab-case. Self-documenting. `rowboat.md`, `multi-agent-orche
+          +stration-patterns.md`, `ejar3-billing-domain.md`.             
+      109 +                                                              
+      110  ## Operations
+      111  
+       66 -### Ingest                                                    
+      112 +### Ingest (external sources)                                 
+      113  
+       68 -1. Read the source from `raw/`.                               
+       69 -2. Classify source type (see table above).                    
+       70 -3. Discuss key takeaways with user.                           
+       71 -4. Write or update summary page in `wiki/`.                   
+       72 -5. Update relevant entity and concept pages.                  
+       73 -6. Update `wiki/index.md`.                                    
+       74 -7. Append entry to `wiki/log.md` with format: `## [YYYY-MM-DD]
+          - ingest | Source Title`.                                      
+       75 -8. A single source may touch 10-15 wiki pages.                
+      114 +1. Read source from `raw/`                                    
+      115 +2. Classify source type                                       
+      116 +3. Write summary/entity/concept page(s) in `wiki/`            
+      117 +4. Update relevant existing pages                             
+      118 +5. Update `wiki/index.md`                                     
+      119 +6. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | Source T
+          +itle`                                                         
+      120 +7. A single source may touch 10-15 pages                      
+      121  
+      122  ### Query
+      123  
+       79 -1. Read `wiki/index.md` to find relevant pages.               
+       80 -2. Read relevant pages, synthesize answer.                    
+       81 -3. If the answer is valuable (comparison, analysis, connection
+          -), save as new wiki page with `type: query-result`.           
+       82 -4. Log the query in `wiki/log.md`.                            
+      124 +1. Read `wiki/index.md` (or QMD search when installed)        
+      125 +2. Read relevant pages, synthesize answer with citations      
+      126 +3. If answer is reusable (comparison, analysis, novel synthesi
+          +s), save to `outputs/answers/` or `outputs/research/`         
+      127 +4. If answer becomes canonical knowledge, promote to `wiki/` a
+          +s query-result page                                           
+      128 +5. Append to `wiki/log.md`: `## [YYYY-MM-DD] query | question`
+      129  
+       84 -### Lint (every 5-10 ingests)                                 
+      130 +### Compile (code-driven)                                     
+      131  
+       86 -Check for:                                                    
+      132 +1. Run `git log --since="1 week ago" --name-only` in each proj
+          +ect repo                                                      
+      133 +2. Identify changed domains/modules                           
+      134 +3. Re-compile affected knowledge files in `projects/*/knowledg
+          +e/`                                                           
+      135 +4. One file per bounded context (domain). Per-layer or per-fea
+          +ture compilation is wrong granularity.                        
+      136 +5. Mark `source: ai-compiled`, `confidence: medium`           
+      137 +6. On contradiction with existing docs: add `## [YYYY-MM-DD] c
+          +ontradiction` section with both versions, mark `confidence: lo
+          +w`, let user resolve                                          
+      138 +                                                              
+      139 +### Audit (wiki + notes, structural)                          
+      140 +                                                              
+      141 +Scope: `wiki/` and `notes/`.                                  
+      142 +                                                              
+      143 +Checks:                                                       
+      144 +- Stale files (`updated:` >60 days)                           
+      145 +- Missing frontmatter fields                                  
+      146 +- Broken `[[wikilinks]]`                                      
+      147 +- Orphan pages (no inbound links)                             
+      148 +- Duplicate titles or overlapping concepts                    
+      149 +- `confidence: low` backlog                                   
+      150  - Contradictions between pages
+       88 -- Stale claims superseded by newer sources                    
+       89 -- Orphan pages with no inbound links                          
+       90 -- Concepts mentioned but lacking their own page               
+       91 -- Missing cross-references                                    
+       92 -- Data gaps that could be filled                              
+      151 +- Counter-arguments section missing (wiki only)               
+      152  
+       94 -Fix autonomously what you can. Flag anything needing user inpu
+          -t.                                                            
+      153 +Scope rule:                                                   
+      154 +- `wiki/` issues → can auto-fix or suggest fix                
+      155 +- `notes/` issues → report only, user decides                 
+      156  
+      157 +Trigger: every 5-10 ingests, or on-demand via `/wiki:audit`.  
+      158 +                                                              
+      159 +### Refresh (single page content update)                      
+      160 +                                                              
+      161 +Target: a specific existing wiki page.                        
+      162 +                                                              
+      163 +1. Read target page, parse frontmatter                        
+      164 +2. Audit claims against other wiki pages (consistency)        
+      165 +3. Validate source URLs still accessible                      
+      166 +4. Optional: fresh web research (`--research` flag)           
+      167 +5. Propose diff — don't auto-apply                            
+      168 +6. On approval: update content, bump `updated:`, append to `wi
+          +ki/log.md`                                                    
+      169 +7. Preserve history via git                                   
+      170 +                                                              
+      171 +## Search Tier (scale-based)                                  
+      172 +                                                              
+      173 +| Scale | Backend | Setup |                                   
+      174 +|-------|---------|-------|                                   
+      175 +| <100 pages | Grep + `wiki/index.md` | Default (current) |   
+      176 +| 100-500 | QMD CLI | `brew install tobi/tap/qmd` |           
+      177 +| 500+ | QMD MCP server | QMD + MCP config |                  
+      178 +                                                              
+      179 +Always read this section before searching. Degrade gracefully:
+          + MCP → CLI → Grep.                                            
+      180 +                                                              
+      181  ## Ingest Counter
+      182  
+       98 -Track ingests since last lint. When count reaches 5-10, trigge
+          -r lint automatically.                                         
+      183 +Track ingests since last lint. When count ≥5, trigger audit au
+          +tomatically.                                                  
+      184  
+      185  **Current count since last lint:** 2
+      186 +                                                              
+      187 +## Non-Negotiable Principles                                  
+      188 +                                                              
+      189 +1. `raw/` is immutable — never modify files after drop        
+      190 +2. `notes/` is user-owned — LLM reads, never writes           
+      191 +3. Every derived wiki page must cite sources from `raw/` or ot
+          +her wiki pages                                                
+      192 +4. Uncertainty must be explicit — use `[uncertainty: reason]` 
+      193 +5. Write-back discipline — valuable answers go to `outputs/` o
+          +r `wiki/`, not ephemeral chat                                 
+      194 +6. Markdown-first, wikilinks over relative paths              
+      195 +7. No placeholder pages — only create pages with real content 
+      196 +8. English-only vault content                                 
+
+  Listed 1 directory (ctrl+o to expand)
+
+⏺ Phase A hoàn thành. Summary:
+
+  Đã tạo
+
+  thieunv-vault/
+  ├── raw/{assets,archive}/           ✓
+  ├── wiki/{assets}/                  ✓ (existing files preserved)
+  ├── notes/{assets}/                 ✓ NEW
+  ├── outputs/{answers,reports,research}/  ✓ NEW
+  ├── projects/
+  │   ├── ejar3/{knowledge,decisions,ops}/  ✓ NEW
+  │   ├── goclaw/{knowledge,decisions}/     ✓ NEW
+  │   └── vividkit/{knowledge,decisions}/   ✓ NEW
+  ├── content/                        ✓ NEW
+  ├── sessions/                       ✓ NEW
+  ├── templates/                      ✓ NEW
+  └── .claude/agents/                 ✓ NEW (empty, Phase B)
+
+  Đã update
+
+  - CLAUDE.md — rewrite schema với: 7-layer architecture, ownership matrix, sync
+   flows, source classification, uncertainty notation ([uncertainty: reason]),
+  search tier scale, audit scope rules, refresh workflow, 8 non-negotiable
+  principles
+  - .gitignore — added plans/, docs/, sessions/, raw/assets/, .mempalace/,
+  Obsidian workspace files
+
+  Existing files preserved
+
+  - wiki/index.md, wiki/log.md, wiki/karpathy-llm-wiki-pattern.md,
+  wiki/llm-wiki-best-practices.md, wiki/rowboat.md,
+  wiki/multi-agent-orchestration-patterns.md
+  - raw/7-things-llm-wiki-stick.md, raw/rowboat-github-repo.md,
+  raw/assets/7-things-llm-wiki-stick-shannholmberg.png
+
+  Câu hỏi trước khi sang Phase B
+
+  1. Agent files location — .claude/agents/ trong vault (project-scope, chỉ
+  active ở vault này) hay ~/.claude/agents/ (global, mọi project đều thấy)?
+  Recommendation: vault-scope để agents gắn với vault workflow.
+  2. Skill files location — ~/.claude/skills/wiki-*/ (global skills, khai báo
+  qua Skill tool) là đúng. Confirm?
+  3. /wiki:refresh scope — refresh chỉ 1 page cụ thể, hay hỗ trợ batch
+  (/wiki:refresh --stale >60d refresh tất cả stale pages)?
+
+  Sẵn sàng start Phase B khi bạn confirm.
+
+✻ Cooked for 1m 38s
+
+❯ Read this skill of other user and provide your feedback before we create the  
+skill for my vault:                                                             
+https://gist.github.com/farzaa/c35ac0cfbeb957788650e36aabea836d                 
+
+⏺ Fetch(https://gist.githubusercontent.com/farzaa/c35ac0cfbeb957788650e36aabea83
+       6d/raw)
+  ⎿  Received 21KB (200 OK)
+
+⏺ Đã đọc xong. Đây là analysis thẳng thắn:
+
+  ---
+  Context: Farzaa's wiki ≠ your wiki
+
+  Đây là skill cho personal life journal — ingest Day One, iMessage, Apple Notes
+   → "map of a mind". Philosophy: one subject = one person's life. Completely
+  khác use case của bạn (multi-project SE knowledge base với research +
+  code-driven).
+
+  Đừng port thẳng. Nhưng có những ideas rất hay nên borrow.
+
+  ---
+  ✅ Ý tưởng NÊN adopt cho vault của bạn
+
+  1. "You are a writer, not a filing clerk" — core philosophy
+
+  ▎ The question is never "where do I put this fact?" It is: "what does this 
+  mean, and how does it connect to what I already know?"
+
+  Áp dụng vào wiki:ingestor: instruction phải force agent understand meaning
+  trước, write synthesis sau. Không phải extract facts → dump vào nearest
+  article.
+
+  2. Anti-cramming / Anti-thinning rules — critical discipline
+
+  - Anti-cramming: "gravitational pull of existing articles is the enemy". Nếu
+  đang thêm paragraph thứ 3 về sub-topic → sub-topic đó deserves own page.
+  - Anti-thinning: "creating a page is not the win, enriching it is". Stub với 3
+   vague sentences = failure.
+
+  Must adopt. Hiện tại wiki của bạn có risk cramming (mọi ingest update existing
+   pages thay vì tạo concept mới).
+
+  3. Re-read before edit — non-negotiable rule
+
+  ▎ Re-read every article before updating it. This is non-negotiable.
+
+  Should add to CLAUDE.md concurrency rules. Hiện tại bạn chưa có rule này
+  explicitly.
+
+  4. Parallel subagents cho cleanup/audit — scalable pattern
+
+  Phase 1: build context (read index + all articles). Phase 2: spawn batches of
+  5 agents, mỗi agent audit 1 article. Phase 3: integrate findings.
+
+  Adopt cho wiki:audit — ở scale hiện tại 4 pages không cần, nhưng khi vault
+  grow >50 pages thì đây là design đúng.
+
+  5. Concrete noun test cho breakdown/synthesize
+
+  ▎ "X is a ___" test. Extract named entities (people, places, companies, books,
+   projects). Skip generic technologies (React, Python) trừ khi có documented 
+  learning arc.
+
+  Adopt cho wiki:synthesizer — giúp tìm missing concept pages systematically.
+
+  6. Checkpoint every N entries
+
+  ▎ Stop processing and: rebuild index, audit new article count, quality audit 3
+   most-updated articles, check if any >150 lines needs splitting.
+
+  Bạn đã có ingest counter (5-10 trigger lint). Nên thêm quality audit
+  component: pick 3 most-updated pages, re-read as whole pieces, rewrite if
+  event-log-style.
+
+  7. Length targets — soft guideline, không phải rule cứng
+
+  Useful heuristic: stub <15 lines = failure, >150 lines = split candidate.
+  Adopt as soft guideline trong audit checklist.
+
+  ---
+  ❌ Ý tưởng KHÔNG nên adopt
+
+  1. "Map of a mind" framing
+  - Không apply. Vault của bạn không phải about one person's life. Research wiki
+   + project knowledge có aims khác.
+
+  2. 30+ pre-defined directory taxonomy
+  - philosophies/, patterns/, tensions/, identities/, touchstones/,
+  metaphors/... — journal-specific. Bạn đã deliberately kept flat. Giữ nguyên.
+
+  3. ingest.py Python script dependency
+  - Bạn drop files manually vào raw/. Không cần format parser cho Day
+  One/iMessage/Apple Notes. Skip entire ingest command.
+
+  4. Chronological absorb loop
+  - Personal journal có chronology ý nghĩa. Research/code knowledge thì không.
+  Ingest by source, not by date.
+
+  5. Tone rules cứng (no em-dashes, no "legendary", no rhetorical questions)
+  - Quá opinionated. Wikipedia tone là good default nhưng đừng ban em-dashes.
+  Technical writing cần nuance này.
+
+  6. Length targets per article type cứng
+  - "Person (1 reference) 20-30 lines" — irrelevant cho technical wiki. Soft
+  guideline OK, hard target nonsense.
+
+  7. Single mega-skill với 6 commands (ingest, absorb, query, cleanup,
+  breakdown, status)
+  - Megaskill antipattern. Bạn đã decide tách thành 8 skills có prefix wiki:.
+  Đúng rồi, giữ.
+
+  ---
+  🔴 Critiques nghiêm trọng của Farzaa's skill
+
+  1. Zero counter-arguments discipline
+  - Không có mandatory "counter-arguments and data gaps" section. Vì nó là
+  personal journal → inherently one-sided. Nhưng với research wiki của bạn,
+  counter-arguments là critical (Karpathy infographic rule #3).
+  - Không được drop rule này.
+
+  2. No uncertainty notation
+  - Farzaa's skill không có [uncertainty: reason]. Mọi claim presented as fact.
+  OK cho personal memory, nguy hiểm cho research.
+  - Giữ [uncertainty:] notation từ wiki-knowledge-compiler.
+
+  3. Weak provenance
+  - Citations chỉ là entry IDs trong frontmatter. Không có inline source
+  attribution cho từng claim. Research wiki cần stronger — inline citations khi
+  claim controversial hoặc single-source.
+
+  4. No search tier strategy
+  - Assumption: grep đủ. Không scale. Bạn đã có tier strategy (grep → QMD CLI →
+  QMD MCP). Better.
+
+  5. "Rebuild index only at end" rule conflicts với incremental ingest
+  - Nếu session crash, index out of sync. Bạn nên update index-on-ingest
+  (already trong current workflow).
+
+  ---
+  Concrete recommendations cho Phase B
+
+  Khi tạo các agents/skills, borrow these 7 elements từ Farzaa:
+
+  ┌──────────────────────────────────────┬──────────────────────────────────┐
+  │               Element                │              Add to              │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ "Writer, not filing clerk"           │ wiki-ingestor.md agent prompt    │
+  │ philosophy                           │                                  │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Anti-cramming rule (new concept →    │ wiki-ingestor.md + wiki:ingest   │
+  │ new page)                            │ skill                            │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Anti-thinning rule (stub = failure)  │ wiki-ingestor.md                 │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Re-read before edit (non-negotiable) │ CLAUDE.md concurrency rules      │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Parallel subagents cleanup pattern   │ wiki-auditor.md (for scale >50   │
+  │                                      │ pages)                           │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Concrete noun test                   │ wiki-synthesizer.md              │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Quality audit checkpoint (every N    │ wiki:audit skill workflow        │
+  │ ingests)                             │                                  │
+  └──────────────────────────────────────┴──────────────────────────────────┘
+
+  Keep firmly từ wiki-knowledge-compiler + Karpathy:
+  - Counter-arguments mandatory section
+  - [uncertainty: reason] notation
+  - Source citation discipline
+  - Search tier strategy
+  - Separation of concerns (multiple skills, not megaskill)
+
+  Kết luận: Farzaa's skill giúp refine writing discipline và scaling patterns.
+  Không phải blueprint. Cherry-pick rồi move on với Phase B.
+
+  Ready to proceed với Phase B? Hay bạn muốn discuss elements nào thêm?

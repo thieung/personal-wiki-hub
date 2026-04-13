@@ -1,0 +1,21 @@
+# Auto-exported session logs (may contain sensitive context)
+sessions/
+
+# Large binary assets
+raw/assets/
+
+# MemPalace local memory (if installed later)
+.mempalace/
+
+# ClaudeKit generated workflow folders
+plans/
+docs/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Obsidian workspace (personal, not content)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
