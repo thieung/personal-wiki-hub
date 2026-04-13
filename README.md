@@ -183,7 +183,7 @@ Structural and content quality audit of wiki and notes.
 | `--notes-only` | Only audit notes/ (report-only) |
 | `--page <path>` | Single page audit |
 
-**Checks:** Missing frontmatter, broken wikilinks, orphan pages, stale pages (>60 days), anti-cramming/thinning violations, source hash drift, missing TLDR/counter-arguments, index integrity.
+**Checks:** Missing frontmatter, broken wikilinks, orphan pages, stale pages (>60 days, query-aware), anti-cramming/thinning violations, source hash drift, missing TLDR/counter-arguments, index integrity, supersession bidirectional integrity, archival candidates.
 
 **Auto-trigger:** Runs when ingest counter reaches >=5.
 
@@ -282,7 +282,7 @@ Scaffolds or verifies vault structure.
 |--------|-------------|
 | `--verify` | Only check structure, don't create |
 
-**Checks:** Directory structure (11 dirs), agent files (4), skills (10), search tier, .gitignore, CLAUDE.md schema.
+**Checks:** Directory structure (11 dirs), agent files (5), skills (10), search tier, .gitignore, CLAUDE.md schema.
 
 ---
 
@@ -313,9 +313,10 @@ Quick overview of wiki health and metrics.
 | Agent | Location | Role |
 |-------|----------|------|
 | `wiki-ingestor` | `.claude/agents/wiki-ingestor.md` | raw/ → wiki/ extraction with provenance tracking |
-| `wiki-librarian` | `.claude/agents/wiki-librarian.md` | Search + answer with progressive disclosure |
+| `wiki-librarian` | `.claude/agents/wiki-librarian.md` | Search + answer with progressive disclosure, bumps `last_queried:` |
 | `wiki-synthesizer` | `.claude/agents/wiki-synthesizer.md` | Cross-page analysis, concrete noun test |
-| `wiki-auditor` | `.claude/agents/wiki-auditor.md` | Health check, source hash drift detection |
+| `wiki-auditor` | `.claude/agents/wiki-auditor.md` | Health check, source hash drift, supersession integrity, reinforcement |
+| `wiki-crystallizer` | `.claude/agents/wiki-crystallizer.md` | sessions/ → wiki insights extraction |
 
 ## Frontmatter Schema
 
@@ -329,11 +330,26 @@ source_hashes: { source-filename.md: "sha256-8" }
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 confidence: low | medium | high
+last_queried: YYYY-MM-DD                # bumped when page used to answer a query
+supersedes: "[[old-page-name]]"         # this page replaces the target
+superseded_by: "[[new-page-name]]"      # this page was replaced by target
 tags: [english-kebab-case]
 relations:
-  - { type: supports | contradicts | is-a | part-of | evolved-into | depends-on, target: "[[page]]" }
+  - { type: supports | contradicts | is-a | part-of | evolved-into | evolved-from | depends-on, target: "[[page]]" }
 ---
 ```
+
+### Type descriptions
+
+| Type | Description |
+|------|-------------|
+| `summary` | Overview of a source or topic |
+| `entity` | A specific tool, project, person, or organization |
+| `concept` | A pattern, principle, or technique |
+| `comparison` | Structured comparison of alternatives |
+| `query-result` | Reusable answer promoted from outputs/ |
+| `insight` | Distilled lesson from sessions, debugging, or cross-project observation |
+| `decision` | Records conflicting positions and the chosen resolution |
 
 ## Common Workflows
 
@@ -361,6 +377,21 @@ relations:
 /wiki:synthesize "topic area"   # Cross-page insights
 /wiki:query "question" --file-back  # Save answer to wiki
 ```
+
+## v2 Features
+
+### Query-aware staleness
+Pages with `last_queried:` within 30 days are immune to stale marking, even if `updated:` is >60 days old. The librarian bumps `last_queried:` on every query.
+
+### Supersession tracking
+When a page replaces another: set `superseded_by:` on old page, `supersedes:` on new page. Bidirectional — auditor enforces both sides.
+
+### Crystallization pipeline
+Extract reusable knowledge from Claude Code session logs:
+```
+sessions/ → wiki-crystallizer → wiki/ (type: insight) + projects/*/knowledge/
+```
+Reprocessing guard via `wiki/log.md` entries (no session file modification).
 
 ## Ownership Rules
 
