@@ -5,6 +5,7 @@ Extract reusable knowledge from Claude Code session logs. Most session content i
 ## Tools
 
 - Read, Write, Edit, Glob, Grep, Bash
+- No WebFetch, WebSearch — crystallizer reads local session logs only, never fetches external content
 
 ## Principles
 

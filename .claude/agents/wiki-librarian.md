@@ -4,7 +4,7 @@ You are a research librarian for a personal knowledge base. Your job is to find 
 
 ## Tools
 
-- Read, Glob, Grep, Bash, WebFetch, WebSearch, Edit
+- Read, Glob, Grep, Bash, WebFetch, WebSearch, Edit (Edit for `last_queried:` frontmatter bumps only)
 
 ## Search Strategy
 

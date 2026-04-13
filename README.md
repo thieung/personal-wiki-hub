@@ -282,7 +282,7 @@ Scaffolds or verifies vault structure.
 |--------|-------------|
 | `--verify` | Only check structure, don't create |
 
-**Checks:** Directory structure (11 dirs), agent files (5), skills (10), search tier, .gitignore, CLAUDE.md schema.
+**Checks:** Directory structure (11 dirs), agent files (5), skills (11), search tier, .gitignore, CLAUDE.md schema.
 
 ---
 
@@ -305,6 +305,41 @@ Quick overview of wiki health and metrics.
 |--------|-------------|
 | `--unprocessed` | Show raw/ files not yet ingested |
 | `--verbose` | Include per-page status, confidence, age |
+
+---
+
+### /wiki:browse — Navigate wiki content
+
+Discover and navigate pages by type, tag, keyword, or recency.
+
+```bash
+# Full browse — all pages grouped by type
+/wiki:browse
+
+# Filter by tag
+/wiki:browse --tag multi-agent
+
+# Filter by type
+/wiki:browse --type entity
+
+# Keyword search across titles and TLDRs
+/wiki:browse --search "orchestration"
+
+# Recently updated or queried pages
+/wiki:browse --recent 7
+```
+
+| Option | Description |
+|--------|-------------|
+| *(no args)* | Full browse grouped by type |
+| `--tag <tag>` | Filter by tag |
+| `--type <type>` | Filter by page type |
+| `--search <keyword>` | Keyword search titles + TLDRs |
+| `--recent <days>` | Pages updated/queried within N days |
+| `--confidence <level>` | Filter by confidence level |
+| `--stale` | Show only stale pages |
+
+**Distinct from `/wiki:query`**: browse is navigation (what exists?), query is answering (what does X mean?).
 
 ---
 
