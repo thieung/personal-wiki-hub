@@ -29,3 +29,8 @@ _No pages yet._
 ## Query Results
 
 _No pages yet._
+
+## System Files
+
+- [Backlog](backlog.md) — Concepts pending promotion (<3 mentions)
+- [Log](log.md) — Operation history (append-only)

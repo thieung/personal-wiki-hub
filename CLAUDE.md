@@ -12,8 +12,12 @@ thieunv-vault/
 ├── wiki/              # LLM-maintained research knowledge
 │   ├── assets/        # LLM-generated diagrams (Excalidraw, Mermaid→SVG)
 │   ├── index.md       # Content catalog
-│   └── log.md         # Operation log (append-only)
+│   ├── log.md         # Operation log (append-only)
+│   └── backlog.md     # Concepts pending promotion
 ├── notes/             # USER-owned — personal thinking, LLM reads only
+│   ├── daily/         # Daily journal entries
+│   ├── fleeting/      # Quick captures, inbox
+│   ├── reviews/       # Weekly review notes
 │   └── assets/        # User's diagrams, sketches
 ├── outputs/           # LLM-generated artifacts (answers, reports, research)
 │   ├── answers/       # Q&A results worth keeping
@@ -25,7 +29,7 @@ thieunv-vault/
 │   └── vividkit/
 ├── content/           # Blog drafts (flat, frontmatter status:)
 ├── sessions/          # Auto-exported Claude Code session logs
-├── templates/         # Frontmatter templates
+├── templates/         # Frontmatter templates (daily, weekly, wiki, fleeting)
 ├── .claude/agents/    # wiki-* subagents
 ├── plans/ + docs/     # ClaudeKit workflow (gitignored)
 └── CLAUDE.md          # This file
@@ -141,12 +145,13 @@ Kebab-case. Self-documenting. `rowboat.md`, `multi-agent-orchestration-patterns.
 1. Read source from `raw/`
 2. Classify source type
 3. Write summary/entity/concept page(s) in `wiki/`
-4. Update relevant existing pages
-5. Update `wiki/index.md`
-6. Compute SHA-256 hash (first 8 chars) of source file, store in `source_hashes` frontmatter
-7. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | Source Title` with `Deferred:` and `Next:` fields
-8. A single source may touch 10-15 pages
-9. On contradicting sources: create decision record (type: decision) instead of silently overwriting
+4. **Auto-backlink:** Identify mentions of existing wiki page titles → wrap in `[[wikilinks]]`
+5. Update relevant existing pages
+6. Update `wiki/index.md`
+7. Compute SHA-256 hash (first 8 chars) of source file, store in `source_hashes` frontmatter
+8. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | Source Title` with `Deferred:` and `Next:` fields
+9. A single source may touch 10-15 pages
+10. On contradicting sources: create decision record (type: decision) instead of silently overwriting
 
 ### Query
 
@@ -215,6 +220,51 @@ Target: a specific existing wiki page.
 6. On approval: update content, bump `updated:`, append to `wiki/log.md`
 7. Preserve history via git
 
+### Graph Health (Obsidian UI integration)
+
+Trigger: "analyze graph health" or weekly review.
+
+1. List orphan pages in `wiki/` (no inbound links from other wiki pages)
+2. List hub pages (>10 inbound links) — candidates for splitting
+3. Suggest potential connections between unlinked but related pages
+4. Flag clusters that seem isolated from rest of vault
+5. Output report to `outputs/reports/graph-health-YYYY-MM-DD.md`
+
+Actions based on findings:
+- Orphan >30 days + `confidence: low` → candidate for archive
+- Hub with many inbound links → check if needs splitting into sub-topics
+- Two unconnected clusters → identify bridging concept
+
+### Concept Backlog (hybrid placeholder approach)
+
+During ingest/compile/crystallize, when encountering unlinked concepts:
+
+1. Search vault for existing mentions of concept
+2. If concept has **≥3 mentions** across vault → create wiki page immediately
+3. If concept has **<3 mentions** → append to `wiki/backlog.md`:
+   ```
+   - [ ] concept-name | first seen: YYYY-MM-DD | mentions: N | context: brief note
+   ```
+4. Never create empty stub pages
+
+Weekly: review `wiki/backlog.md`, promote concepts that accumulated enough mentions.
+
+## Trigger Phrases
+
+Explicit triggers for operations (use these exact phrases):
+
+| Phrase | Operation | Scope |
+|--------|-----------|-------|
+| "ingest [filename]" | Ingest | Single file in `raw/` |
+| "compile this week" | Compile | `raw/` files modified in last 7 days |
+| "compile [project]" | Compile | Specific project knowledge |
+| "crystallize [session]" | Crystallize | Extract insights from session log |
+| "query [question]" | Query | Search + synthesize answer |
+| "audit vault" | Audit | Full structural audit |
+| "analyze graph health" | Graph Health | Obsidian graph analysis |
+| "refresh [page]" | Refresh | Update single wiki page |
+| "review backlog" | Backlog | Process `wiki/backlog.md` |
+
 ## Search Tier (scale-based)
 
 | Scale | Backend | Setup |
@@ -239,5 +289,5 @@ Track ingests since last lint. When count ≥5, trigger audit automatically.
 4. Uncertainty must be explicit — use `[uncertainty: reason]`
 5. Write-back discipline — valuable answers go to `outputs/` or `wiki/`, not ephemeral chat
 6. Markdown-first, wikilinks over relative paths
-7. No placeholder pages — only create pages with real content
+7. No placeholder pages — use `wiki/backlog.md` for concept tracking instead of empty stubs
 8. English-only vault content

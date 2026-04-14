@@ -21,6 +21,8 @@ LLM-maintained personal knowledge base following the [Karpathy LLM Wiki pattern]
 /wiki:status
 ```
 
+**First time?** See [QUICK_START.md](QUICK_START.md) for full A-Z setup guide.
+
 ## Architecture
 
 ```
@@ -31,8 +33,13 @@ thieunv-vault/
 ├── wiki/              # LLM-maintained knowledge (auto-generated)
 │   ├── assets/        # LLM-generated diagrams
 │   ├── index.md       # Content catalog
-│   └── log.md         # Operation log (append-only)
+│   ├── log.md         # Operation log (append-only)
+│   └── backlog.md     # Concepts pending promotion
 ├── notes/             # User-owned thinking (LLM reads only)
+│   ├── daily/         # Daily journal entries
+│   ├── fleeting/      # Quick captures, inbox
+│   ├── reviews/       # Weekly review notes
+│   └── assets/        # Personal diagrams
 ├── outputs/           # LLM-generated answers, reports, research
 │   ├── answers/       # Q&A results worth keeping
 │   ├── reports/       # Analysis reports
@@ -41,10 +48,12 @@ thieunv-vault/
 │   └── <project>/     # Per-project: knowledge/, decisions/, ops/
 ├── content/           # Blog drafts
 ├── sessions/          # Auto-exported Claude Code session logs
-├── templates/         # Frontmatter templates
+├── templates/         # Frontmatter templates (daily, weekly, wiki, fleeting)
 ├── .claude/agents/    # wiki-* subagents (5)
 └── CLAUDE.md          # Schema governance
 ```
+
+**Full structure details:** See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
 
 ---
 
@@ -675,7 +684,14 @@ Pages with `last_queried:` within 30 days are immune to stale marking.
 /wiki:refresh --stale 60        # Update old pages
 /wiki:link                      # Add missing cross-links
 /wiki:index --full              # Rebuild catalog
+
+# New: Graph + Backlog review
+"compile this week"             # Process raw/ files from last 7 days
+"analyze graph health"          # Orphans, hubs, clusters report
+"review backlog"                # Process wiki/backlog.md
 ```
+
+**Tip:** Use Obsidian's Periodic Notes plugin with `templates/weekly-review.md` for automated weekly checklist.
 
 ### Deep analysis
 ```bash
@@ -727,3 +743,35 @@ Extract reusable knowledge from Claude Code session logs:
 sessions/ → wiki-crystallizer → wiki/ (type: insight) + projects/*/knowledge/
 ```
 Reprocessing guard via `wiki/log.md` entries (no session file modification). Credential patterns (`sk-*`, `ghp_*`, `AKIA*`) automatically stripped.
+
+### Graph Health (Obsidian UI)
+Trigger: `"analyze graph health"` — produces report on:
+- Orphan pages (no inbound links)
+- Hub pages (>10 inbound links, candidates for splitting)
+- Isolated clusters needing bridge concepts
+
+Output: `outputs/reports/graph-health-YYYY-MM-DD.md`
+
+### Concept Backlog
+Hybrid placeholder approach — no empty stubs, but concepts are tracked:
+- Concepts with ≥3 mentions → create wiki page immediately
+- Concepts with <3 mentions → append to `wiki/backlog.md`
+- Weekly: `"review backlog"` to promote accumulated concepts
+
+---
+
+## Trigger Phrases
+
+Explicit triggers for operations (use these exact phrases):
+
+| Phrase | Operation | Scope |
+|--------|-----------|-------|
+| `"ingest [filename]"` | Ingest | Single file in `raw/` |
+| `"compile this week"` | Compile | `raw/` files modified in last 7 days |
+| `"compile [project]"` | Compile | Specific project knowledge |
+| `"crystallize [session]"` | Crystallize | Extract insights from session log |
+| `"query [question]"` | Query | Search + synthesize answer |
+| `"audit vault"` | Audit | Full structural audit |
+| `"analyze graph health"` | Graph Health | Obsidian graph analysis |
+| `"refresh [page]"` | Refresh | Update single wiki page |
+| `"review backlog"` | Backlog | Process `wiki/backlog.md` |
