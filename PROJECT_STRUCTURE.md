@@ -1,11 +1,11 @@
 # Project Structure
 
-Detailed breakdown of the thieunv-vault architecture — a 7-layer LLM-maintained knowledge base.
+Detailed breakdown of the personal-wiki-hub architecture — a 7-layer LLM-maintained knowledge base.
 
 ## Directory Tree
 
 ```
-thieunv-vault/
+personal-wiki-hub/
 ├── raw/                    # Layer 1: External Sources
 │   ├── assets/             # Images, PDFs attached to sources
 │   └── archive/            # Auto-archived after 30 days unprocessed
@@ -46,19 +46,32 @@ thieunv-vault/
 │   ├── fleeting-note.md    # Quick capture template
 │   └── wiki-page.md        # Wiki page template
 │
-├── .claude/agents/         # Wiki Subagents (5)
-│   ├── wiki-ingestor.md
-│   ├── wiki-librarian.md
-│   ├── wiki-synthesizer.md
-│   ├── wiki-auditor.md
-│   └── wiki-crystallizer.md
+├── .claude/
+│   ├── agents/             # Wiki Subagents (5)
+│   │   ├── wiki-ingestor.md
+│   │   ├── wiki-librarian.md
+│   │   ├── wiki-synthesizer.md
+│   │   ├── wiki-auditor.md
+│   │   └── wiki-crystallizer.md
+│   └── skills/             # Wiki Skills (11)
+│       ├── wiki-audit/
+│       ├── wiki-browse/
+│       ├── wiki-capture/
+│       ├── wiki-index/
+│       ├── wiki-ingest/
+│       ├── wiki-link/
+│       ├── wiki-query/
+│       ├── wiki-refresh/
+│       ├── wiki-setup/
+│       ├── wiki-status/
+│       └── wiki-synthesize/
 │
 ├── plans/                  # ClaudeKit Plans (gitignored)
 ├── docs/                   # ClaudeKit Docs (gitignored)
 │
 ├── CLAUDE.md               # Schema Governance
 ├── README.md               # Full Reference
-├── QUICK_START.md          # A-Z Setup Guide
+├── INSTALLATION.md         # Step-by-step Setup Guide
 └── PROJECT_STRUCTURE.md    # This File
 ```
 
@@ -296,7 +309,7 @@ templates/
 .claude/agents/
 CLAUDE.md
 README.md
-QUICK_START.md
+INSTALLATION.md
 PROJECT_STRUCTURE.md
 ```
 

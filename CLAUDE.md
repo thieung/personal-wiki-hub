@@ -5,7 +5,7 @@ This vault is a persistent, LLM-maintained knowledge base following the [Karpath
 ## Architecture (7 layers)
 
 ```
-thieunv-vault/
+personal-wiki-hub/
 ├── raw/               # External sources — immutable, user drops files
 │   ├── assets/        # Images attached to sources
 │   └── archive/       # Unprocessed items >30 days
@@ -30,7 +30,9 @@ thieunv-vault/
 ├── content/           # Blog drafts (flat, frontmatter status:)
 ├── sessions/          # Auto-exported Claude Code session logs
 ├── templates/         # Frontmatter templates (daily, weekly, wiki, fleeting)
-├── .claude/agents/    # wiki-* subagents
+├── .claude/
+│   ├── agents/        # wiki-* subagents (5)
+│   └── skills/        # wiki-* skills (11)
 ├── plans/ + docs/     # ClaudeKit workflow (gitignored)
 └── CLAUDE.md          # This file
 ```

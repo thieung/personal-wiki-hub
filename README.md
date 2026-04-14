@@ -1,6 +1,8 @@
-# thieunv-vault
+# personal-wiki-hub
 
-LLM-maintained personal knowledge base following the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Designed for Claude Code with Obsidian as the human interface.
+[English](README.md) | [Tiếng Việt](README.vi.md)
+
+LLM-maintained personal knowledge base following the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), extended with production patterns from [rohitg00's agentmemory architecture](https://gist.github.com/rohitg00/2067ab416f7bbe447c1977edaaa681e2). Designed for Claude Code with Obsidian as the human interface.
 
 ## Quick Start
 
@@ -21,12 +23,12 @@ LLM-maintained personal knowledge base following the [Karpathy LLM Wiki pattern]
 /wiki:status
 ```
 
-**First time?** See [QUICK_START.md](QUICK_START.md) for full A-Z setup guide.
+**First time?** See [INSTALLATION.md](INSTALLATION.md) for step-by-step setup guide.
 
 ## Architecture
 
 ```
-thieunv-vault/
+personal-wiki-hub/
 ├── raw/               # External sources (immutable, user drops)
 │   ├── assets/        # Images attached to sources
 │   └── archive/       # Unprocessed items >30 days
@@ -49,7 +51,9 @@ thieunv-vault/
 ├── content/           # Blog drafts
 ├── sessions/          # Auto-exported Claude Code session logs
 ├── templates/         # Frontmatter templates (daily, weekly, wiki, fleeting)
-├── .claude/agents/    # wiki-* subagents (5)
+├── .claude/
+│   ├── agents/        # wiki-* subagents (5)
+│   └── skills/        # wiki-* skills (11)
 └── CLAUDE.md          # Schema governance
 ```
 
@@ -58,6 +62,8 @@ thieunv-vault/
 ---
 
 ## Skills Reference (11 skills)
+
+**Location:** `.claude/skills/wiki-*` (project-local)
 
 ### /wiki:capture — Capture external sources
 

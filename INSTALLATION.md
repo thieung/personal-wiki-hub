@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Complete A-Z setup for thieunv-vault with Obsidian + Claude Code.
+Step-by-step setup for personal-wiki-hub with Obsidian + Claude Code.
 
 ## Prerequisites
 
@@ -63,11 +63,11 @@ gh auth login
 
 ```bash
 # If new vault
-git clone <your-vault-repo> ~/thieunv-vault
-cd ~/thieunv-vault
+git clone <your-vault-repo> ~/personal-wiki-hub
+cd ~/personal-wiki-hub
 
 # Or open existing folder as Obsidian vault
-# Obsidian → Open folder as vault → select ~/thieunv-vault
+# Obsidian → Open folder as vault → select ~/personal-wiki-hub
 ```
 
 ---
@@ -134,7 +134,7 @@ Now:
 Open terminal in vault directory:
 
 ```bash
-cd ~/thieunv-vault
+cd ~/personal-wiki-hub
 claude
 
 # In Claude Code session:
@@ -242,7 +242,7 @@ gh auth login
 ### "Claude Code can't find skills"
 ```bash
 # Verify skills location
-ls ~/.claude/skills/
+ls .claude/skills/
 
 # Or check project-level
 ls .claude/agents/
@@ -251,7 +251,7 @@ ls .claude/agents/
 ### "/wiki:* commands not recognized"
 Skills are loaded from CLAUDE.md context. Ensure you're in vault directory:
 ```bash
-cd ~/thieunv-vault
+cd ~/personal-wiki-hub
 claude
 ```
 
@@ -260,7 +260,7 @@ claude
 ## Directory Structure Reference
 
 ```
-thieunv-vault/
+personal-wiki-hub/
 ├── raw/               # Drop sources here (immutable)
 │   └── archive/       # Auto-archived after 30 days
 ├── wiki/              # LLM-maintained knowledge
@@ -283,7 +283,7 @@ thieunv-vault/
 ├── .claude/agents/    # Wiki subagents
 ├── CLAUDE.md          # Schema governance
 ├── README.md          # Full reference
-├── QUICK_START.md     # This file
+├── INSTALLATION.md    # This file
 └── PROJECT_STRUCTURE.md  # Detailed structure guide
 ```
 

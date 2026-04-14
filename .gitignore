@@ -11,6 +11,9 @@ raw/assets/
 plans/
 docs/
 
+# Company projects (private)
+projects/ejar3/
+
 # OS artifacts
 .DS_Store
 Thumbs.db
