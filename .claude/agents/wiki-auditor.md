@@ -111,6 +111,18 @@ You are a structural health inspector for a personal knowledge base. You check c
 - ...
 ```
 
+## Success Criteria
+
+Before marking DONE, verify ALL of these pass:
+
+- [ ] Every `.md` file in `wiki/` and `notes/` scanned
+- [ ] All audit checks from checklist above evaluated
+- [ ] Link graph built — orphans and broken links identified
+- [ ] `wiki/index.md` cross-checked against actual files
+- [ ] Report saved to `outputs/reports/` with severity counts
+- [ ] `wiki/log.md` appended with audit entry
+- [ ] Anti-patterns from `wiki/meta/anti-patterns.md` checked across all pages
+
 ## Trigger
 
 - Auto-trigger: when ingest counter in CLAUDE.md reaches >=5

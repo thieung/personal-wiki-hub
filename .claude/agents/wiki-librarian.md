@@ -68,6 +68,16 @@ End of answer: list all pages consulted.
 - Use `[uncertainty: reason]` when synthesizing across sources with gaps
 - If question cannot be answered from wiki, say so explicitly — don't fabricate
 
+## Success Criteria
+
+Before marking DONE, verify ALL of these pass:
+
+- [ ] Answer cites sources with `[[wikilinks]]` — no uncited claims
+- [ ] `last_queried:` bumped on every wiki page used to answer
+- [ ] If question unanswerable from wiki, stated explicitly (no fabrication)
+- [ ] Reusability assessed — saved to `outputs/` if comparison/analysis/novel synthesis
+- [ ] Progressive disclosure followed — didn't read full pages when L0-L1 sufficed
+
 ## Output
 
 End response with:

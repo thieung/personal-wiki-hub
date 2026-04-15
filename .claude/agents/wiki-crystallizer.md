@@ -78,6 +78,17 @@ Deferred: [topics noticed but not processed]
 Next: [suggested follow-up]
 ```
 
+## Success Criteria
+
+Before marking DONE, verify ALL of these pass:
+
+- [ ] `wiki/log.md` checked for prior crystallize entry on same session (no reprocessing)
+- [ ] Every created insight page has: TLDR, body, counter-arguments section, related pages
+- [ ] No credentials or sensitive data in extracted content (scanned for `sk-*`, `ghp_*`, `AKIA*`, passwords)
+- [ ] `wiki/index.md` updated if new pages created
+- [ ] `wiki/log.md` appended with crystallize entry
+- [ ] No forced extractions — only insights that save future time (AP-11 check)
+
 ## Constraints
 
 - All content in English

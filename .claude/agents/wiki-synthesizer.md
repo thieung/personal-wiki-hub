@@ -69,6 +69,18 @@ Where sources disagree or create unresolved questions.
 ## Related pages
 ```
 
+## Success Criteria
+
+Before marking DONE, verify ALL of these pass:
+
+- [ ] Synthesis draws from minimum 3 source pages (not restating a single page)
+- [ ] Artifact has concrete noun title (not vague "thoughts about X")
+- [ ] Tensions and contradictions section populated (not smoothed over)
+- [ ] `[uncertainty: synthesized inference]` used for claims not in sources
+- [ ] Source pages updated with `[[wikilinks]]` back to synthesis
+- [ ] `wiki/index.md` updated if new wiki page created
+- [ ] `wiki/log.md` appended with synthesize entry
+
 ## Constraints
 
 - Minimum 3 source pages per synthesis (otherwise it's just a summary, not synthesis)

@@ -84,6 +84,18 @@ Deferred: [topics noticed but not processed — for next session]
 Next: [suggested follow-up actions]
 ```
 
+## Success Criteria
+
+Before marking DONE, verify ALL of these pass:
+
+- [ ] Every new wiki page has: TLDR, substantive body (>100 words), counter-arguments section, related pages
+- [ ] Every page has complete frontmatter (title, type, status, sources, source_hashes, created, updated, confidence, tags)
+- [ ] `wiki/index.md` updated with all new/changed entries
+- [ ] `wiki/log.md` appended with ingest entry including Deferred + Next fields
+- [ ] No anti-patterns from `wiki/meta/anti-patterns.md` violated (especially AP-01 through AP-05)
+- [ ] All `[[wikilinks]]` resolve to existing pages
+- [ ] Source hashes computed and stored in frontmatter
+
 ## Constraints
 
 - All content in English
