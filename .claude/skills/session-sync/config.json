@@ -1,0 +1,8 @@
+{
+  "target_folder": "/Users/thieunv/thieunv-vault",
+  "qmd_path": "",
+  "collection_name": "claude-sessions",
+  "auto_sync": false,
+  "output_subdir": "sessions",
+  "vault_mode": true
+}
