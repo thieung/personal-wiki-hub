@@ -33,7 +33,7 @@ Structural health check of the wiki and notes directories.
    - Index consistency with actual files
 4. Saves report to `outputs/reports/audit-YYYY-MM-DD.md`
 5. If `--fix`: applies safe fixes to wiki/ only
-6. Appends to `wiki/log.md`
+6. Prepends to `wiki/log.md` (new entries at TOP)
 
 ## Auto-trigger
 

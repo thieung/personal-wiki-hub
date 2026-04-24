@@ -1,0 +1,74 @@
+---
+name: Wiki Dashboard
+description: Vault health views for wiki/ layer
+version: 1.0.0
+obsidian_min_version: 1.9.10
+---
+
+views:
+  - name: Recent Activity
+    source: wiki/
+    columns:
+      - property: title
+      - property: type
+      - property: status
+      - property: confidence
+      - property: updated
+    sort:
+      - property: updated
+        order: desc
+    limit: 20
+
+  - name: Stale Pages
+    source: wiki/
+    filter:
+      or:
+        - property: status
+          value: stale
+        - and:
+            - property: updated
+              before: 60 days ago
+            - or:
+                - property: last_queried
+                  empty: true
+                - property: last_queried
+                  before: 30 days ago
+    columns:
+      - property: title
+      - property: type
+      - property: updated
+      - property: last_queried
+    sort:
+      - property: updated
+        order: asc
+
+  - name: Low Confidence
+    source: wiki/
+    filter:
+      property: confidence
+      value: low
+    columns:
+      - property: title
+      - property: type
+      - property: sources
+      - property: updated
+    sort:
+      - property: updated
+        order: desc
+
+  - name: Orphan Candidates
+    description: >
+      Bases cannot natively detect orphans (no inbound links).
+      Use /wiki:link skill for accurate orphan detection.
+      This view shows recently created pages — manually check for links.
+    source: wiki/
+    filter:
+      property: created
+      after: 30 days ago
+    columns:
+      - property: title
+      - property: type
+      - property: created
+    sort:
+      - property: created
+        order: asc

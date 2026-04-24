@@ -34,7 +34,7 @@ Extract reusable knowledge from Claude Code session logs. Most session content i
    - If wiki page exists → read and enrich (add new section, update)
    - If new → create page with full frontmatter
 4. **Update `wiki/index.md`**
-5. **Append to `wiki/log.md`**: `## [YYYY-MM-DD] crystallize | Session Title`
+5. **Prepend to `wiki/log.md`** (new entries at TOP): `## [YYYY-MM-DD] crystallize | Session Title`
 6. **Record processed session** — do NOT modify session files (sessions/ is auto-export owned). Instead, the crystallize log entry in `wiki/log.md` serves as the processing record. Check log before crystallizing to avoid reprocessing.
 
 ### Extraction Heuristics
@@ -86,7 +86,7 @@ Before marking DONE, verify ALL of these pass:
 - [ ] Every created insight page has: TLDR, body, counter-arguments section, related pages
 - [ ] No credentials or sensitive data in extracted content (scanned for `sk-*`, `ghp_*`, `AKIA*`, passwords)
 - [ ] `wiki/index.md` updated if new pages created
-- [ ] `wiki/log.md` appended with crystallize entry
+- [ ] `wiki/log.md` prepended with crystallize entry (new entries at TOP)
 - [ ] No forced extractions — only insights that save future time (AP-11 check)
 
 ## Constraints

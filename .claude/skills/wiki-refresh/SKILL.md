@@ -18,6 +18,7 @@ Refresh content of an existing wiki page — verify claims, update stale info, o
 - `--research` — Do fresh web research to supplement existing sources
 - `--all-sources` — Re-read all cited sources in `raw/` before refreshing
 - `--stale <days>` — Batch mode: refresh all pages with `updated:` older than N days (default 60)
+- `--factcheck` — Run cross-model fact-check via `codex:rescue` on the refreshed content before applying diff
 
 ## Behavior
 
@@ -28,10 +29,11 @@ Refresh content of an existing wiki page — verify claims, update stale info, o
 3. Validate source URLs if present (check accessibility)
 4. If `--all-sources`: re-read all files listed in `sources:` frontmatter
 5. If `--research`: web search for updated information on the topic
-6. **Propose diff** — show changes, do NOT auto-apply
-7. On user approval: update content, bump `updated:` date
+6. If `--factcheck`: delegate proposed diff + sources to `codex:rescue` for independent verification (see prompt template in `.claude/agents/wiki-ingestor.md`)
+7. **Propose diff** — show changes + factcheck findings, do NOT auto-apply
+8. On user approval: update content, bump `updated:` date
 8. Update cross-references if needed
-9. Append to `wiki/log.md`: `## [YYYY-MM-DD] refresh | Page Title`
+9. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] refresh | Page Title`
 
 ### Batch mode (`--stale`)
 

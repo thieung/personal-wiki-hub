@@ -24,7 +24,7 @@ Rebuild `wiki/index.md` from actual wiki files.
    - Grouped entries with `[[wikilinks]]`
    - Tag cloud at bottom
    - Last rebuilt timestamp
-7. Append to `wiki/log.md`: `## [YYYY-MM-DD] index | rebuild`
+7. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] index | rebuild`
 
 ## Index Format
 

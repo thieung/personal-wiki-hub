@@ -11,8 +11,10 @@ personal-wiki-hub/
 │   └── archive/       # Unprocessed items >30 days
 ├── wiki/              # LLM-maintained research knowledge
 │   ├── assets/        # LLM-generated diagrams (Excalidraw, Mermaid→SVG)
+│   ├── meta/          # Dashboard, anti-patterns
 │   ├── index.md       # Content catalog
-│   ├── log.md         # Operation log (append-only)
+│   ├── log.md         # Operation log (prepend, newest first)
+│   ├── hot.md         # Recent context cache (<500 words)
 │   └── backlog.md     # Concepts pending promotion
 ├── notes/             # USER-owned — personal thinking, LLM reads only
 │   ├── daily/         # Daily journal entries
@@ -142,6 +144,47 @@ Kebab-case. Self-documenting. `rowboat.md`, `multi-agent-orchestration-patterns.
 
 ## Operations
 
+### Hot Cache
+
+`wiki/hot.md` is a <500 word recent-context snapshot. Loaded automatically on session start/resume and after compaction.
+
+**Format:**
+- `## Last Updated` — timestamp
+- `## Key Recent Facts` — vault rules, active constraints
+- `## Recent Changes` — last 3-5 wiki operations
+- `## Active Threads` — ongoing work, pending decisions
+
+**Update triggers:**
+- After every ingest
+- After significant query
+- On session Stop if wiki/ changed (prompted by hook)
+- Manual: "refresh hot cache"
+
+**Rules:**
+- Overwrite completely, never append
+- Keep under 500 words
+- English only
+
+### Autoresearch (web research)
+
+Iterative web research with fact-check guardrail. Invoked via `/wiki:autoresearch <topic>` or "autoresearch [topic]".
+
+**Workflow:**
+1. Round 1: Broad search (3-5 angles, 2-3 queries each)
+2. Round 2: Gap fill (targeted queries for contradictions/missing pieces)
+3. Round 3: Synthesis check (optional, only if major gaps remain)
+
+**Output:**
+- Primary: `outputs/research/{topic-slug}-YYMMDD.md` (type: research, confidence: low initially)
+- Fact-check via `codex:rescue` before promotion
+- Entities/concepts with ≥3 mentions → create wiki/ pages
+- <3 mentions → append to `wiki/backlog.md`
+
+**Constraints:**
+- Max 20 WebFetch per run
+- MUST run fact-check unless `--no-factcheck`
+- MUST NOT auto-promote to wiki/ — user decides
+
 ### Ingest (external sources)
 
 1. Read source from `raw/`
@@ -149,9 +192,10 @@ Kebab-case. Self-documenting. `rowboat.md`, `multi-agent-orchestration-patterns.
 3. Write summary/entity/concept page(s) in `wiki/`
 4. **Auto-backlink:** Identify mentions of existing wiki page titles → wrap in `[[wikilinks]]`
 5. Update relevant existing pages
-6. Update `wiki/index.md`
-7. Compute SHA-256 hash (first 8 chars) of source file, store in `source_hashes` frontmatter
-8. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | Source Title` with `Deferred:` and `Next:` fields
+6. **Cross-model fact-check** (via `codex:rescue` skill) — independent read of drafted pages against raw sources; apply findings (soften unsupported claims, create decision records on contradictions, adjust `confidence`). Skip for thread/tweet ingest or `--no-factcheck` flag.
+7. Update `wiki/index.md`
+8. Compute SHA-256 hash (first 8 chars) of source file, store in `source_hashes` frontmatter
+9. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] ingest | Source Title` with `Factcheck:`, `Deferred:`, `Next:` fields
 9. A single source may touch 10-15 pages
 10. On contradicting sources: create decision record (type: decision) instead of silently overwriting
 
@@ -161,7 +205,7 @@ Kebab-case. Self-documenting. `rowboat.md`, `multi-agent-orchestration-patterns.
 2. Read relevant pages, synthesize answer with citations
 3. If answer is reusable (comparison, analysis, novel synthesis), save to `outputs/answers/` or `outputs/research/`
 4. If answer becomes canonical knowledge, promote to `wiki/` as query-result page
-5. Append to `wiki/log.md`: `## [YYYY-MM-DD] query | question` with `Deferred:` and `Next:` fields
+5. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] query | question` with `Deferred:` and `Next:` fields
 
 ### Compile (code-driven)
 
@@ -182,7 +226,7 @@ Extract reusable knowledge from Claude Code session logs.
    - Check if existing wiki/project page covers it → update
    - Otherwise create new page (type: insight) in `wiki/` or `projects/*/knowledge/`
 4. Update `wiki/index.md`
-5. Append to `wiki/log.md`: `## [YYYY-MM-DD] crystallize | Session Title`
+5. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] crystallize | Session Title`
 6. Single session typically yields 1-3 insight pages
 7. Reprocessing guard: check `wiki/log.md` for existing crystallize entry before processing a session
 
@@ -219,7 +263,7 @@ Target: a specific existing wiki page.
 3. Validate source URLs still accessible
 4. Optional: fresh web research (`--research` flag)
 5. Propose diff — don't auto-apply
-6. On approval: update content, bump `updated:`, append to `wiki/log.md`
+6. On approval: update content, bump `updated:`, prepend to `wiki/log.md`
 7. Preserve history via git
 
 ### Graph Health (Obsidian UI integration)
@@ -266,6 +310,8 @@ Explicit triggers for operations (use these exact phrases):
 | "analyze graph health" | Graph Health | Obsidian graph analysis |
 | "refresh [page]" | Refresh | Update single wiki page |
 | "review backlog" | Backlog | Process `wiki/backlog.md` |
+| "refresh hot cache" | Hot Cache | Update `wiki/hot.md` |
+| "autoresearch [topic]" | Autoresearch | Web research with fact-check |
 
 ## Search Tier (scale-based)
 

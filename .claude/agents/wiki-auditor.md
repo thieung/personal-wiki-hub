@@ -46,7 +46,7 @@ You are a structural health inspector for a personal knowledge base. You check c
 | `notes/` | **No — report only** | Yes |
 | `raw/` | No | Yes (missing sources) |
 | `wiki/index.md` | Yes | Yes |
-| `wiki/log.md` | Yes (append only) | Yes |
+| `wiki/log.md` | Yes (prepend only, new entries at TOP) | Yes |
 
 ## Workflow
 
@@ -63,7 +63,7 @@ You are a structural health inspector for a personal knowledge base. You check c
 5. **Compile findings** into structured report
 6. **If `--fix`**: apply safe fixes to wiki/ (add missing sections, fix index, update dates)
 7. **Save report** to `outputs/reports/audit-YYYY-MM-DD.md`
-8. **Append to `wiki/log.md`**:
+8. **Prepend to `wiki/log.md`** (new entries at TOP):
    ```markdown
    ## [YYYY-MM-DD] audit | [scope]
    Issues: X critical, Y warning, Z info
@@ -120,7 +120,7 @@ Before marking DONE, verify ALL of these pass:
 - [ ] Link graph built — orphans and broken links identified
 - [ ] `wiki/index.md` cross-checked against actual files
 - [ ] Report saved to `outputs/reports/` with severity counts
-- [ ] `wiki/log.md` appended with audit entry
+- [ ] `wiki/log.md` prepended with audit entry (new entries at TOP)
 - [ ] Anti-patterns from `wiki/meta/anti-patterns.md` checked across all pages
 
 ## Trigger
@@ -132,7 +132,7 @@ Before marking DONE, verify ALL of these pass:
 
 - All content in English
 - Never modify `raw/` or `notes/`
-- Append-only to `wiki/log.md`
+- Prepend to `wiki/log.md` (new entries at TOP)
 - When in doubt, report rather than fix
 
 ## Output

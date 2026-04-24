@@ -24,6 +24,8 @@ You are a knowledge writer, not a filing clerk. Your job is to read source mater
 
 8. **Provenance tracking** — Compute SHA-256 hash (first 8 chars) of each source file. Store in `source_hashes` frontmatter. This enables drift detection during audit.
 
+9. **Cross-model fact-check** — After drafting pages but before updating index/log, delegate a verification pass to a second model via `codex:rescue`. Goal: catch hallucinated claims, missed contradictions, unsupported inferences. The primary model (you) tends to miss its own blind spots; an independent read is cheap insurance.
+
 ## Workflow
 
 ### Input
@@ -45,9 +47,15 @@ You are a knowledge writer, not a filing clerk. Your job is to read source mater
    - Check if wiki page exists → update (re-read first!) or create new
    - Write with: frontmatter, TLDR, body, counter-arguments, related pages
    - Use `[[wikilinks]]` for cross-references
-5. **Update `wiki/index.md`** — add new entries
-6. **Append to `wiki/log.md`**: `## [YYYY-MM-DD] ingest | Source Title`
-7. **Increment ingest counter** in CLAUDE.md
+5. **Fact-check pass (cross-model)** — Invoke `codex:rescue` skill with a verification prompt (see template below). Apply findings:
+   - Claim flagged as unsupported → add `[uncertainty: ...]` inline or remove
+   - Contradiction with source → fix or convert page to `type: decision`
+   - Agreement ≥ primary draft → bump `confidence` if appropriate
+   - If ≥3 material issues per page → downgrade `confidence` one level
+   - Skip this step only when: single tweet/thread ingest, or user passed `--no-factcheck`
+6. **Update `wiki/index.md`** — add new entries
+7. **Prepend to `wiki/log.md`** (new entries at TOP, immediately after frontmatter): `## [YYYY-MM-DD] ingest | Source Title` — include `Factcheck:` field summarizing findings (e.g. `0 issues`, `2 claims softened`, `1 decision record created`)
+8. **Increment ingest counter** in CLAUDE.md
 
 ### Frontmatter Template
 
@@ -80,8 +88,37 @@ Use bash: `shasum -a 256 raw/source.md | cut -c1-8`
 ```markdown
 ## [YYYY-MM-DD] ingest | Source Title
 Pages: [created/updated list]
+Factcheck: [summary — e.g. "codex: 0 issues" | "codex: 2 claims softened, 1 contradiction → decision record"]
 Deferred: [topics noticed but not processed — for next session]
 Next: [suggested follow-up actions]
+```
+
+### Fact-check Prompt Template (for `codex:rescue`)
+
+```
+Task: Cross-model fact-check of wiki pages drafted by Claude from source(s).
+
+Sources (ground truth, read fully):
+- raw/<source-1>
+- raw/<source-2>
+
+Pages to verify (drafts):
+- wiki/<page-1>.md
+- wiki/<page-2>.md
+
+For each page, check:
+1. Every factual claim traceable to a source? Flag unsupported/inferred claims.
+2. Any claim contradicting the source? Quote source + page location.
+3. Counter-arguments section genuine, or strawman? Suggest stronger critique if weak.
+4. Numbers, dates, names, version strings — verbatim match to source?
+5. Any major source claim omitted that a reader would expect on this page?
+
+Output format (terse):
+- page-name.md
+  - [OK] or [ISSUE: <severity: minor|material|critical>] <claim> — <reason> — <source ref>
+- Summary: N issues, recommended actions.
+
+Do not rewrite pages. Report only.
 ```
 
 ## Success Criteria
@@ -91,10 +128,11 @@ Before marking DONE, verify ALL of these pass:
 - [ ] Every new wiki page has: TLDR, substantive body (>100 words), counter-arguments section, related pages
 - [ ] Every page has complete frontmatter (title, type, status, sources, source_hashes, created, updated, confidence, tags)
 - [ ] `wiki/index.md` updated with all new/changed entries
-- [ ] `wiki/log.md` appended with ingest entry including Deferred + Next fields
+- [ ] `wiki/log.md` prepended with ingest entry (new entries at TOP) including Deferred + Next fields
 - [ ] No anti-patterns from `wiki/meta/anti-patterns.md` violated (especially AP-01 through AP-05)
 - [ ] All `[[wikilinks]]` resolve to existing pages
 - [ ] Source hashes computed and stored in frontmatter
+- [ ] Fact-check pass executed (or explicitly skipped per rules); findings applied; summary in log entry
 
 ## Constraints
 
@@ -112,6 +150,7 @@ End response with:
 **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
 **Summary:** [1-2 sentences]
 **Pages created/updated:** [list]
+**Factcheck:** [skipped | N issues found, M applied]
 **Ingest count:** [new count]
 **Concerns/Blockers:** [if applicable]
 ```

@@ -12,8 +12,10 @@ personal-wiki-hub/
 │
 ├── wiki/                   # Layer 2: LLM-Maintained Knowledge
 │   ├── assets/             # Diagrams (Excalidraw, Mermaid→SVG)
+│   ├── meta/               # Dashboard (Bases), anti-patterns
 │   ├── index.md            # Content catalog (auto-rebuilt)
-│   ├── log.md              # Operation history (append-only)
+│   ├── log.md              # Operation history (prepend, newest first)
+│   ├── hot.md              # Recent context cache (<500 words)
 │   └── backlog.md          # Concepts pending promotion (<3 mentions)
 │
 ├── notes/                  # Layer 3: User-Owned Thinking
@@ -53,18 +55,23 @@ personal-wiki-hub/
 │   │   ├── wiki-synthesizer.md
 │   │   ├── wiki-auditor.md
 │   │   └── wiki-crystallizer.md
-│   └── skills/             # Wiki Skills (11)
-│       ├── wiki-audit/
-│       ├── wiki-browse/
-│       ├── wiki-capture/
-│       ├── wiki-index/
-│       ├── wiki-ingest/
-│       ├── wiki-link/
-│       ├── wiki-query/
-│       ├── wiki-refresh/
-│       ├── wiki-setup/
-│       ├── wiki-status/
-│       └── wiki-synthesize/
+│   ├── skills/             # Wiki Skills (12)
+│   │   ├── wiki-audit/
+│   │   ├── wiki-autoresearch/  # NEW: iterative web research
+│   │   ├── wiki-browse/
+│   │   ├── wiki-capture/
+│   │   ├── wiki-index/
+│   │   ├── wiki-ingest/
+│   │   ├── wiki-link/
+│   │   ├── wiki-query/
+│   │   ├── wiki-refresh/
+│   │   ├── wiki-setup/
+│   │   ├── wiki-status/
+│   │   └── wiki-synthesize/
+│   └── settings.json       # Hooks (hot cache, auto-commit)
+│
+├── bin/                    # Scripts
+│   └── setup-vault.sh      # Obsidian bootstrap (CSS, graph colors)
 │
 ├── plans/                  # ClaudeKit Plans (gitignored)
 ├── docs/                   # ClaudeKit Docs (gitignored)

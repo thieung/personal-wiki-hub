@@ -154,7 +154,32 @@ Wiki Setup Status:
 
 ---
 
-## Step 8: Configure Git (Optional but Recommended)
+## Step 8: Run Obsidian Setup Script
+
+Bootstrap Obsidian with vault-specific CSS snippets, graph colors, and search exclusions:
+
+```bash
+# Run setup (idempotent, safe to re-run)
+bash bin/setup-vault.sh
+
+# Force overwrite existing configs
+bash bin/setup-vault.sh --force
+```
+
+**What it does:**
+- Creates `.obsidian/app.json` — excludes `plans/`, `docs/`, `.claude/`, `sessions/` from search/graph
+- Creates `.obsidian/appearance.json` — enables `vault-colors` CSS snippet
+- Creates `.obsidian/graph.json` — color-codes layers (wiki=blue, notes=green, etc.)
+- Installs `.obsidian/snippets/vault-colors.css` — folder highlighting
+
+**After running:**
+1. Open vault in Obsidian
+2. Settings → Appearance → CSS Snippets → enable "vault-colors"
+3. Open Graph View to verify color-coded layers
+
+---
+
+## Step 9: Configure Git (Optional but Recommended)
 
 ```bash
 # Ensure .gitignore is set
@@ -175,7 +200,7 @@ git commit -m "chore: vault setup complete"
 
 ---
 
-## Step 9: First Capture + Ingest
+## Step 10: First Capture + Ingest
 
 Test the full pipeline:
 
@@ -190,7 +215,7 @@ Test the full pipeline:
 
 ---
 
-## Step 10: Daily Usage
+## Step 11: Daily Usage
 
 ### Daily workflow
 1. Open daily note (⌘N or click today in Calendar plugin)

@@ -32,8 +32,10 @@ personal-wiki-hub/
 │   └── archive/       # Mục chưa xử lý >30 ngày
 ├── wiki/              # Kiến thức do LLM duy trì (tự động tạo)
 │   ├── assets/        # Sơ đồ do LLM tạo
+│   ├── meta/          # Dashboard, anti-patterns
 │   ├── index.md       # Danh mục nội dung
-│   ├── log.md         # Nhật ký hoạt động (chỉ thêm)
+│   ├── log.md         # Nhật ký hoạt động (prepend, mới nhất trước)
+│   ├── hot.md         # Cache ngữ cảnh gần đây (<500 từ)
 │   └── backlog.md     # Khái niệm đang chờ xử lý
 ├── notes/             # Suy nghĩ của người dùng (LLM chỉ đọc)
 │   ├── daily/         # Nhật ký hàng ngày
@@ -47,7 +49,10 @@ personal-wiki-hub/
 ├── templates/         # Mẫu frontmatter
 ├── .claude/
 │   ├── agents/        # wiki-* subagents (5)
-│   └── skills/        # wiki-* skills (11)
+│   ├── skills/        # wiki-* skills (12)
+│   └── settings.json  # Hooks (hot cache, auto-commit)
+├── bin/
+│   └── setup-vault.sh # Script bootstrap Obsidian
 └── CLAUDE.md          # Quản lý schema
 ```
 
@@ -55,7 +60,7 @@ personal-wiki-hub/
 
 ---
 
-## Tham chiếu Skills (11 skills)
+## Tham chiếu Skills (12 skills)
 
 **Vị trí:** `.claude/skills/wiki-*` (trong dự án)
 
@@ -63,6 +68,7 @@ personal-wiki-hub/
 |-------|-------|
 | `/wiki:capture` | Thu thập nguồn bên ngoài (URL, PDF, clipboard) |
 | `/wiki:ingest` | Xử lý nguồn thành các trang wiki |
+| `/wiki:autoresearch` | Nghiên cứu web lặp lại với fact-check |
 | `/wiki:query` | Tìm kiếm và trả lời từ wiki |
 | `/wiki:browse` | Duyệt nội dung wiki |
 | `/wiki:synthesize` | Phân tích đa trang, tìm connections |

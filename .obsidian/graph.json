@@ -1,0 +1,9 @@
+{
+        "colorGroups": [
+            {"query": "path:raw/", "color": {"a": 0.3, "rgb": 8421504}},
+            {"query": "path:wiki/", "color": {"a": 1, "rgb": 4169E1}},
+            {"query": "path:notes/", "color": {"a": 1, "rgb": 2E8B57}},
+            {"query": "path:outputs/", "color": {"a": 1, "rgb": 16753920}},
+            {"query": "path:projects/", "color": {"a": 1, "rgb": 9400D3}}
+        ]
+    }

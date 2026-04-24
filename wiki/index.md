@@ -1,7 +1,7 @@
 ---
 title: Wiki Index
 type: index
-updated: 2026-04-14
+updated: 2026-04-24
 ---
 
 # Wiki Index
@@ -33,4 +33,6 @@ _No pages yet._
 ## System Files
 
 - [Backlog](backlog.md) — Concepts pending promotion (<3 mentions)
-- [Log](log.md) — Operation history (append-only)
+- [Hot Cache](hot.md) — Recent context snapshot (<500 words, auto-refreshed)
+- [Log](log.md) — Operation history (prepend, newest first)
+- [Dashboard](meta/dashboard.base) — Obsidian Bases health views (v1.9.10+)

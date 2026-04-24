@@ -34,8 +34,10 @@ personal-wiki-hub/
 │   └── archive/       # Unprocessed items >30 days
 ├── wiki/              # LLM-maintained knowledge (auto-generated)
 │   ├── assets/        # LLM-generated diagrams
+│   ├── meta/          # Dashboard, anti-patterns
 │   ├── index.md       # Content catalog
-│   ├── log.md         # Operation log (append-only)
+│   ├── log.md         # Operation log (prepend, newest first)
+│   ├── hot.md         # Recent context cache (<500 words)
 │   └── backlog.md     # Concepts pending promotion
 ├── notes/             # User-owned thinking (LLM reads only)
 │   ├── daily/         # Daily journal entries
@@ -53,7 +55,10 @@ personal-wiki-hub/
 ├── templates/         # Frontmatter templates (daily, weekly, wiki, fleeting)
 ├── .claude/
 │   ├── agents/        # wiki-* subagents (5)
-│   └── skills/        # wiki-* skills (11)
+│   ├── skills/        # wiki-* skills (12)
+│   └── settings.json  # Hooks (hot cache, auto-commit)
+├── bin/
+│   └── setup-vault.sh # Obsidian bootstrap script
 └── CLAUDE.md          # Schema governance
 ```
 
@@ -61,7 +66,7 @@ personal-wiki-hub/
 
 ---
 
-## Skills Reference (11 skills)
+## Skills Reference (12 skills)
 
 **Location:** `.claude/skills/wiki-*` (project-local)
 
@@ -159,6 +164,48 @@ Reads raw sources, classifies content, and extracts knowledge into typed wiki pa
 - After ingest count reaches 5, auto-suggests running `/wiki:audit`
 
 **Agent:** `wiki-ingestor` (`.claude/agents/wiki-ingestor.md`)
+
+---
+
+### /wiki:autoresearch — Web research with fact-check
+
+Iterative web research loop with cross-model fact-check guardrail. Outputs synthesis to `outputs/research/`, promotes validated entities to `wiki/`.
+
+```bash
+# Basic research
+/wiki:autoresearch "llm wiki patterns"
+
+# More rounds (default 3, max 5)
+/wiki:autoresearch "agent orchestration" --rounds 5
+
+# Skip fact-check (emergency only)
+/wiki:autoresearch "react server components" --no-factcheck
+```
+
+| Option | Description |
+|--------|-------------|
+| `<topic>` | Research topic (required) |
+| `--rounds N` | Number of research rounds (default 3, max 5) |
+| `--no-factcheck` | Skip cross-model fact-check (emergency only) |
+
+**Workflow:**
+1. Round 1: Broad search (3-5 angles, 2-3 queries each)
+2. Round 2: Gap fill (targeted queries for contradictions/missing pieces)
+3. Round 3: Synthesis check (optional, only if major gaps remain)
+
+**Output:**
+- Primary synthesis → `outputs/research/{topic-slug}-YYMMDD.md`
+- Fact-check via `codex:rescue` before promotion
+- Entities/concepts ≥3 mentions → wiki/ pages (kebab-case)
+- <3 mentions → append to `wiki/backlog.md`
+
+**Constraints:** Max 20 WebFetch per run, English only, fact-check mandatory unless `--no-factcheck`.
+
+**Use cases:**
+- Deep dive on unfamiliar topic before starting a project
+- Research comparison of competing tools/approaches
+- Gather evidence for a technical decision
+- Build wiki knowledge base from web sources
 
 ---
 

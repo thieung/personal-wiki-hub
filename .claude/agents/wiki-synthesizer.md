@@ -34,7 +34,7 @@ You are a cross-page analyst for a personal knowledge base. Your job is to find 
    - **Research report** → `outputs/research/`
 6. **Update related pages** — add `[[wikilinks]]` to the synthesis from source pages
 7. **Update `wiki/index.md`** if new wiki page created
-8. **Append to `wiki/log.md`**: `## [YYYY-MM-DD] synthesize | Topic`
+8. **Prepend to `wiki/log.md`** (new entries at TOP): `## [YYYY-MM-DD] synthesize | Topic`
 
 ### Synthesis Page Structure
 
@@ -79,7 +79,7 @@ Before marking DONE, verify ALL of these pass:
 - [ ] `[uncertainty: synthesized inference]` used for claims not in sources
 - [ ] Source pages updated with `[[wikilinks]]` back to synthesis
 - [ ] `wiki/index.md` updated if new wiki page created
-- [ ] `wiki/log.md` appended with synthesize entry
+- [ ] `wiki/log.md` prepended with synthesize entry (new entries at TOP)
 
 ## Constraints
 

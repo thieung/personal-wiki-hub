@@ -1,0 +1,38 @@
+/* vault-colors.css — Color-code vault layers in file explorer */
+/* Tested on Obsidian v1.9.10 */
+
+/* raw/ — gray/dimmed (immutable sources) */
+.nav-folder-title[data-path^="raw"] {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* wiki/ — blue (LLM-maintained) */
+.nav-folder-title[data-path^="wiki"] {
+    color: #4169E1;
+}
+
+/* notes/ — green (user-owned) */
+.nav-folder-title[data-path^="notes"] {
+    color: #2E8B57;
+}
+
+/* outputs/ — orange (generated artifacts) */
+.nav-folder-title[data-path^="outputs"] {
+    color: #FFA500;
+}
+
+/* projects/ — purple (code-driven) */
+.nav-folder-title[data-path^="projects"] {
+    color: #9400D3;
+}
+
+/* content/ — teal (blog drafts) */
+.nav-folder-title[data-path^="content"] {
+    color: #20B2AA;
+}
+
+/* sessions/ — slate (auto-export) */
+.nav-folder-title[data-path^="sessions"] {
+    color: #708090;
+}

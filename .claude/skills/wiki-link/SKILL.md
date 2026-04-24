@@ -29,7 +29,7 @@ Cross-linking pass — find and add missing `[[wikilinks]]` between related page
    - Propose adding missing related page links
 5. If `--dry-run`: report proposed changes only
 6. Otherwise: apply links, bump `updated:` dates
-7. Append to `wiki/log.md`: `## [YYYY-MM-DD] link | cross-linking pass`
+7. Prepend to `wiki/log.md` (new entries at TOP): `## [YYYY-MM-DD] link | cross-linking pass`
 
 ## Example
 
