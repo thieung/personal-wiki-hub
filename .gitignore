@@ -14,6 +14,10 @@ docs/
 # Company projects (private)
 projects/ejar3/
 
+# Session sync skill artifacts
+.claude/skills/session-sync/sync.log
+**/lib/__pycache__/
+
 # OS artifacts
 .DS_Store
 Thumbs.db

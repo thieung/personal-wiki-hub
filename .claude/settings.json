@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "content": "If wiki/hot.md exists, silently read it to restore recent context. Do not announce."
+            "prompt": "If wiki/hot.md exists, silently read it to restore recent context. Do not announce."
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "content": "Hook-injected context does not survive compaction. Re-read wiki/hot.md if it exists."
+            "prompt": "Hook-injected context does not survive compaction. Re-read wiki/hot.md if it exists."
           }
         ]
       }
