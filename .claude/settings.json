@@ -2,28 +2,46 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "startup|resume",
-        "type": "prompt",
-        "content": "If wiki/hot.md exists, silently read it to restore recent context. Do not announce."
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "content": "If wiki/hot.md exists, silently read it to restore recent context. Do not announce."
+          }
+        ]
       }
     ],
     "PostCompact": [
       {
-        "type": "prompt",
-        "content": "Hook-injected context does not survive compaction. Re-read wiki/hot.md if it exists."
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "content": "Hook-injected context does not survive compaction. Re-read wiki/hot.md if it exists."
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "type": "command",
-        "command": "[ -d .git ] && git add wiki/ raw/ 2>/dev/null && (git diff --cached --quiet || git commit -m \"wiki: auto-commit $(date '+%Y-%m-%d %H:%M')\" 2>/dev/null) || true"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -d .git ] && git add wiki/ raw/ 2>/dev/null && (git diff --cached --quiet || git commit -m \"wiki: auto-commit $(date '+%Y-%m-%d %H:%M')\" 2>/dev/null) || true"
+          }
+        ]
       }
     ],
     "Stop": [
       {
-        "type": "command",
-        "command": "git diff --name-only HEAD 2>/dev/null | grep -q '^wiki/' && echo 'WIKI_CHANGED: Please refresh wiki/hot.md with current session context (Key Facts, Recent Changes, Active Threads). Keep under 500 words.' || true"
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git diff --name-only HEAD 2>/dev/null | grep -q '^wiki/' && echo 'WIKI_CHANGED: Please refresh wiki/hot.md with current session context (Key Facts, Recent Changes, Active Threads). Keep under 500 words.' || true"
+          }
+        ]
       }
     ]
   },
