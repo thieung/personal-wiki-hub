@@ -182,6 +182,37 @@ tags: [luôn-dùng-kebab-case-tiếng-anh]
 
 ---
 
+## Skills bổ sung
+
+### /tasknotes — Quản lý Task Obsidian
+
+Quản lý tasks trong Obsidian qua TaskNotes plugin HTTP API.
+
+```bash
+/tasknotes                      # Liệt kê tất cả tasks
+/tasknotes list in-progress     # Lọc theo status
+/tasknotes create "Tiêu đề"     # Tạo task mới
+/tasknotes done "Tasks/x.md"    # Đánh dấu hoàn thành
+/tasknotes options              # Xem statuses/priorities
+```
+
+**Yêu cầu:** TaskNotes plugin với HTTP API bật (port 8080).
+
+**Trigger phrases:** "show my tasks", "create task for X", "mark X as done"
+
+### /session-sync — Export phiên Claude Code
+
+Export nhật ký phiên Claude Code vào `sessions/` để crystallize.
+
+```bash
+/session-sync                   # Export phiên hiện tại
+/session-sync --all             # Export tất cả phiên gần đây
+```
+
+**Xem thêm:** [AVAILABLE_COMMANDS.md](AVAILABLE_COMMANDS.md) — danh sách đầy đủ các lệnh
+
+---
+
 ## Tính năng v2
 
 ### Staleness nhận biết query

@@ -828,3 +828,34 @@ Explicit triggers for operations (use these exact phrases):
 | `"analyze graph health"` | Graph Health | Obsidian graph analysis |
 | `"refresh [page]"` | Refresh | Update single wiki page |
 | `"review backlog"` | Backlog | Process `wiki/backlog.md` |
+
+---
+
+## Additional Project Skills
+
+### /tasknotes — Obsidian Task Management
+
+Manage tasks in Obsidian via TaskNotes plugin HTTP API.
+
+```bash
+/tasknotes                      # List all tasks
+/tasknotes list in-progress     # Filter by status
+/tasknotes create "Task title"  # Create new task
+/tasknotes done "Tasks/x.md"    # Mark task done
+/tasknotes options              # Show available statuses/priorities
+```
+
+**Requirements:** TaskNotes plugin with HTTP API enabled (port 8080).
+
+**Trigger phrases:** "show my tasks", "create task for X", "mark X as done"
+
+### /session-sync — Export Claude Code Sessions
+
+Export Claude Code session logs to `sessions/` directory for crystallization.
+
+```bash
+/session-sync                   # Export current session
+/session-sync --all             # Export all recent sessions
+```
+
+**See also:** [AVAILABLE_COMMANDS.md](AVAILABLE_COMMANDS.md) for complete command reference
