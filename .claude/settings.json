@@ -5,8 +5,8 @@
         "matcher": "",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "If wiki/hot.md exists, silently read it to restore recent context. Do not announce."
+            "type": "command",
+            "command": "[ -f wiki/hot.md ] && printf '%s\\n' '<wiki-hot-cache>' && cat wiki/hot.md && printf '%s\\n' '</wiki-hot-cache>' || true"
           }
         ]
       }
@@ -16,8 +16,8 @@
         "matcher": "",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "Hook-injected context does not survive compaction. Re-read wiki/hot.md if it exists."
+            "type": "command",
+            "command": "[ -f wiki/hot.md ] && printf '%s\\n' 'Hook-injected context did not survive compaction. Re-loading wiki/hot.md:' && cat wiki/hot.md || true"
           }
         ]
       }
