@@ -147,7 +147,7 @@ def _export_one(jsonl_path: Path, output_dir: Path, config: dict, vault_dir: str
         target_dir = output_dir / project_name
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    # Filename with time component for sort order
+    # Filename with time and project for sort order and identification
     time_part = ""
     if data.get("first_timestamp"):
         try:
@@ -155,11 +155,11 @@ def _export_one(jsonl_path: Path, output_dir: Path, config: dict, vault_dir: str
             time_part = f"-{ts.strftime('%H%M')}"
         except Exception:
             pass
-    filename = f"{data['date']}{time_part}-{data['session_id'][:8]}.md"
-
-    # Check for existing file (by session_id prefix)
-    existing = None
     short_id = data["session_id"][:8]
+    filename = f"{data['date']}{time_part}-{project_name}-{short_id}.md"
+
+    # Check for existing file (by session_id suffix)
+    existing = None
     for f in target_dir.glob(f"*-{short_id}.md"):
         existing = f
         break
