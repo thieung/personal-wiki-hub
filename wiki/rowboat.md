@@ -12,7 +12,7 @@ relations:
   - { type: is-a, target: "[[karpathy-llm-wiki-pattern]]" }
   - { type: depends-on, target: "[[multi-agent-orchestration-patterns]]" }
 ---
-
+	
 # Rowboat
 
 **TLDR:** Open-source, local-first AI coworker (YC S24) that auto-builds persistent knowledge graphs from email, calendar, and meeting notes as Obsidian-compatible Markdown. Essentially Karpathy's LLM Wiki pattern applied to professional work context with automated ingestion.
