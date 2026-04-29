@@ -14,15 +14,16 @@ docs/
 # Company projects (private)
 projects/ejar3/
 
-# Session sync skill artifacts
+# Claude Code — local-only (per-machine)
+.claude/settings.local.json
 .claude/skills/session-sync/sync.log
-**/lib/__pycache__/
+.claude/**/__pycache__/
+
+# Obsidian — per-machine workspace state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
 
 # OS artifacts
 .DS_Store
 Thumbs.db
-
-# Obsidian workspace (personal, not content)
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache

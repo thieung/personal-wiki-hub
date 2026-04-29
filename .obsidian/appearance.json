@@ -1,3 +1,5 @@
 {
-        "enabledCssSnippets": ["vault-colors"]
-    }
+  "enabledCssSnippets": [
+    "vault-colors"
+  ]
+}

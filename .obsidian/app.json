@@ -1,8 +1,8 @@
 {
-        "userIgnoreFilters": [
-            "plans/",
-            "docs/",
-            ".claude/",
-            "sessions/"
-        ]
-    }
+  "userIgnoreFilters": [
+    "plans/",
+    "docs/",
+    ".claude/",
+    "sessions/"
+  ]
+}
